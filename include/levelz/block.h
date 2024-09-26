@@ -54,12 +54,12 @@ typedef struct Block {
  * 
  * @param name The name of the block.
  */
-Block createBlock(char* name) {
-    Block b;
-    b.name = name;
-    b.propertyCount = 0;
-    b.propertyCapacity = _BLOCK_PROPERTIES_INIT_CAPACITY;
-    b.properties = (BlockProperty**) malloc(b.propertyCapacity * sizeof(BlockProperty*));
+Block* createBlock(char* name) {
+    Block* b = (Block*) malloc(sizeof(Block));
+    b->name = name;
+    b->propertyCount = 0;
+    b->propertyCapacity = _BLOCK_PROPERTIES_INIT_CAPACITY;
+    b->properties = (BlockProperty**) malloc(b->propertyCapacity * sizeof(BlockProperty*));
     
     return b;
 }
@@ -95,8 +95,10 @@ void Block_setProperty(Block* b, char* name, char* value) {
 
     if (sizeof(b->properties) < 16)
         b->properties[sizeof(b->properties)] = p;
-    else
-        b->properties = (BlockProperty*) realloc(b->properties, sizeof(b->properties) * 2);
+    else {
+        b->properties = (BlockProperty**) realloc(b->properties, sizeof(b->properties) * 2);
+        b->properties[sizeof(b->properties)] = p;
+    }
 }
 
 /**
@@ -211,21 +213,21 @@ Block* Block_fromString(char* str) {
     Block* b = (Block*) malloc(sizeof(Block));
     b->name = name;
     
-    char* name = 0;
+    char* property = 0;
     char* value = 0;
     int valueIndex;
-    for (int i = start; i < end - str; i++) {
+    for (int i = start - str; i < end - str; i++) {
         char c = str[i];
 
         switch (c) {
             case '=': {
                 valueIndex = i;
-                name = (char*) malloc(i - startIndex + 1);
+                property = (char*) malloc(i - startIndex + 1);
 
                 for (int j = startIndex; j < i; j++) {
-                    name[j - startIndex] = str[j];
+                    property[j - startIndex] = str[j];
                 }
-                name[i - startIndex] = '\0';
+                property[i - startIndex] = '\0';
                 break;
             }
             case ',': {
@@ -235,9 +237,9 @@ Block* Block_fromString(char* str) {
                     value[j - valueIndex] = str[j];
                 }
                 value[i - valueIndex] = '\0';
-                Block_setProperty(b, name, value);
+                Block_setProperty(b, property, value);
 
-                free(name);
+                free(property);
                 free(value);
                 break;
             }
@@ -284,9 +286,9 @@ LevelObject2D createLevelObject2D(Block* block, Coordinate2D* coordinate) {
  * Converts a LevelObject2D to a string.
  * @param block The LevelObject2D.
  */
-LevelObject2D_toString(LevelObject2D* object) {
-    char* block = Block_toString(&object->block);
-    char* coordinate = Coordinate2D_toString(&object->coordinate);
+char* LevelObject2D_toString(LevelObject2D* object) {
+    char* block = Block_toString(object->block);
+    char* coordinate = Coordinate2D_toString(object->coordinate);
 
     char* str = (char*) malloc(strlen(block) + strlen(coordinate) + 3);
     sprintf(str, "%s: %s", block, coordinate);
@@ -342,9 +344,9 @@ LevelObject3D createLevelObject3D(Block* block, Coordinate3D* coordinate) {
  * Converts a LevelObject3D to a string.
  * @param block The LevelObject3D.
  */
-LevelObject3D_toString(LevelObject3D* object) {
-    char* block = Block_toString(&object->block);
-    char* coordinate = Coordinate3D_toString(&object->coordinate);
+char* LevelObject3D_toString(LevelObject3D* object) {
+    char* block = Block_toString(object->block);
+    char* coordinate = Coordinate3D_toString(object->coordinate);
 
     char* str = (char*) malloc(strlen(block) + strlen(coordinate) + 3);
     sprintf(str, "%s: %s", block, coordinate);

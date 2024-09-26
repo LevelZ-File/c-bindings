@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
+#include <tgmath.h>
 
 /**
  * Represents a coordinate in a 2D space.
@@ -12,25 +12,24 @@ typedef struct Coordinate2D {
     /**
      * The x value of the coordinate.
      */
-    int x;
+    double x;
 
     /**
      * The y value of the coordinate.
      */
-    int y;
+    double y;
 } Coordinate2D;
 
 /**
  * Creates a new Coordinate2D.
- * 
  * @param x The x value of the coordinate.
  * @param y The y value of the coordinate.
  * @return A new Coordinate.
  */
-Coordinate2D createCoordinate2D(int x, int y) {
-    Coordinate2D c;
-    c.x = x;
-    c.y = y;
+Coordinate2D* createCoordinate2D(double x, double y) {
+    Coordinate2D* c = (Coordinate2D*) malloc(sizeof(Coordinate2D));
+    c->x = x;
+    c->y = y;
     return c;
 }
 
@@ -40,8 +39,8 @@ Coordinate2D createCoordinate2D(int x, int y) {
  * @param b The second coordinate.
  * @return The distance between the two coordinates.
  */
-double distance(Coordinate2D a, Coordinate2D b) {
-    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+double Coordinate2D_distance(Coordinate2D* a, Coordinate2D* b) {
+    return sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2));
 }
 
 /**
@@ -49,20 +48,8 @@ double distance(Coordinate2D a, Coordinate2D b) {
  * @param a The coordinate.
  * @return The magnitude of the coordinate.
  */
-double Coordinate2D_magnitude(Coordinate2D a) {
-    return sqrt(pow(a.x, 2) + pow(a.y, 2));
-}
-
-/**
- * Creates a new Coordinate2D.
- * @param xy An array of two integers representing the x and y values of the coordinate.
- * @return A new Coordinate.
- */
-Coordinate2D createCoordinate2D(int xy[2]) {
-    Coordinate2D c;
-    c.x = xy[0];
-    c.y = xy[1];
-    return c;
+double Coordinate2D_magnitude(Coordinate2D* a) {
+    return sqrt(pow(a->x, 2) + pow(a->y, 2));
 }
 
 /**
@@ -71,8 +58,8 @@ Coordinate2D createCoordinate2D(int xy[2]) {
  * @param b The second coordinate.
  * @return The sum of the two coordinates.
  */
-Coordinate2D Coordinate2D_add(Coordinate2D a, Coordinate2D b) {
-    return createCoordinate2D(a.x + b.x, a.y + b.y);
+Coordinate2D* Coordinate2D_add(Coordinate2D* a, Coordinate2D* b) {
+    return createCoordinate2D(a->x + b->x, a->y + b->y);
 }
 
 /**
@@ -81,8 +68,8 @@ Coordinate2D Coordinate2D_add(Coordinate2D a, Coordinate2D b) {
  * @param b The second coordinate.
  * @return The difference of the two coordinates.
  */
-Coordinate2D Coordinate2D_subtract(Coordinate2D a, Coordinate2D b) {
-    return createCoordinate2D(a.x - b.x, a.y - b.y);
+Coordinate2D* Coordinate2D_subtract(Coordinate2D* a, Coordinate2D* b) {
+    return createCoordinate2D(a->x - b->x, a->y - b->y);
 }
 
 /**
@@ -91,9 +78,29 @@ Coordinate2D Coordinate2D_subtract(Coordinate2D a, Coordinate2D b) {
  * @return The string representation of the coordinate.
  */
 char* Coordinate2D_toString(Coordinate2D* c) {
-    int size = snprintf(NULL, 0, "[%d, %d]", c->x, c->y);
-    char* str = (char*) malloc(size);
-    sprintf(str, "[%d, %d]", c->x, c->y);
+    int xmod = modf(c->x / 2, &c->x);
+    int ymod = modf(c->y / 2, &c->y);
+
+    int size;
+    char* str;
+    if (xmod == 0 && ymod == 0) {
+        size = snprintf(NULL, 0, "[%d, %d]", (int) c->x, (int) c->y);
+        str = (char*) malloc(size);
+        sprintf(str, "[%d, %d]", (int) c->x, (int) c->y);
+    } else if (xmod == 0) {
+        size = snprintf(NULL, 0, "[%d, %f]", (int) c->x, c->y);
+        str = (char*) malloc(size);
+        sprintf(str, "[%d, %f]", (int) c->x, c->y);
+    } else if (ymod == 0) {
+        size = snprintf(NULL, 0, "[%f, %d]", c->x, (int) c->y);
+        str = (char*) malloc(size);
+        sprintf(str, "[%f, %d]", c->x, (int) c->y);
+    } else {
+        size = snprintf(NULL, 0, "[%f, %f]", c->x, c->y);
+        str = (char*) malloc(size);
+        sprintf(str, "[%f, %f]", c->x, c->y);
+    }
+    
     return str;
 }
 
@@ -103,13 +110,9 @@ char* Coordinate2D_toString(Coordinate2D* c) {
  * @return The Coordinate2D.
  */
 Coordinate2D* Coordinate2D_fromString(char* str) {
-    int x, y;
-    sscanf(str, "[%d, %d]", &x, &y);
-
-    Coordinate2D* c = (Coordinate2D*) malloc(sizeof(Coordinate2D));
-    *c = createCoordinate2D(x, y);
-
-    return c;
+    double x, y;
+    sscanf(str, "[%lf, %lf]", &x, &y);
+    return createCoordinate2D(x, y);
 }
 
 /**
@@ -119,45 +122,31 @@ typedef struct Coordinate3D {
     /**
      * The x value of the coordinate.
      */
-    int x;
+    double x;
 
     /**
      * The y value of the coordinate.
      */
-    int y;
+    double y;
 
     /**
      * The z value of the coordinate.
      */
-    int z;
+    double z;
 } Coordinate3D;
 
 /**
  * Creates a new Coordinate3D.
- * 
  * @param x The x value of the coordinate.
  * @param y The y value of the coordinate.
  * @param z The z value of the coordinate.
  * @return A new Coordinate.
  */
-Coordinate3D createCoordinate3D(int x, int y, int z) {
-    Coordinate3D c;
-    c.x = x;
-    c.y = y;
-    c.z = z;
-    return c;
-}
-
-/**
- * Creates a new Coordinate3D.
- * @param xyz An array of three integers representing the x, y, and z values of the coordinate.
- * @return A new Coordinate.
- */
-Coordinate3D createCoordinate3D(int xyz[3]) {
-    Coordinate3D c;
-    c.x = xyz[0];
-    c.y = xyz[1];
-    c.z = xyz[2];
+Coordinate3D* createCoordinate3D(double x, double y, double z) {
+    Coordinate3D* c = (Coordinate3D*) malloc(sizeof(Coordinate3D));
+    c->x = x;
+    c->y = y;
+    c->z = z;
     return c;
 }
 
@@ -167,8 +156,8 @@ Coordinate3D createCoordinate3D(int xyz[3]) {
  * @param b The second coordinate.
  * @return The distance between the two coordinates.
  */
-double distance(Coordinate3D a, Coordinate3D b) {
-    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2) + pow(a.z - b.z, 2));
+double Coordinate3D_distance(Coordinate3D* a, Coordinate3D* b) {
+    return sqrt(pow(a->x - b->x, 2) + pow(a->y - b->y, 2) + pow(a->z - b->z, 2));
 }
 
 /**
@@ -176,8 +165,8 @@ double distance(Coordinate3D a, Coordinate3D b) {
  * @param a The coordinate.
  * @return The magnitude of the coordinate.
  */
-double Coordinate3D_magnitude(Coordinate3D a) {
-    return sqrt(pow(a.x, 2) + pow(a.y, 2) + pow(a.z, 2));
+double Coordinate3D_magnitude(Coordinate3D* a) {
+    return sqrt(pow(a->x, 2) + pow(a->y, 2) + pow(a->z, 2));
 }
 
 /**
@@ -186,8 +175,8 @@ double Coordinate3D_magnitude(Coordinate3D a) {
  * @param b The second coordinate.
  * @return The sum of the two coordinates.
  */
-Coordinate3D Coordinate3D_add(Coordinate3D a, Coordinate3D b) {
-    return createCoordinate3D(a.x + b.x, a.y + b.y, a.z + b.z);
+Coordinate3D* Coordinate3D_add(Coordinate3D* a, Coordinate3D* b) {
+    return createCoordinate3D(a->x + b->x, a->y + b->y, a->z + b->z);
 }
 
 /**
@@ -196,8 +185,8 @@ Coordinate3D Coordinate3D_add(Coordinate3D a, Coordinate3D b) {
  * @param b The second coordinate.
  * @return The difference of the two coordinates.
  */
-Coordinate3D Coordinate3D_subtract(Coordinate3D a, Coordinate3D b) {
-    return createCoordinate3D(a.x - b.x, a.y - b.y, a.z - b.z);
+Coordinate3D* Coordinate3D_subtract(Coordinate3D* a, Coordinate3D* b) {
+    return createCoordinate3D(a->x - b->x, a->y - b->y, a->z - b->z);
 }
 
 /**
@@ -206,9 +195,46 @@ Coordinate3D Coordinate3D_subtract(Coordinate3D a, Coordinate3D b) {
  * @return The string representation of the coordinate.
  */
 char* Coordinate3D_toString(Coordinate3D* c) {
-    int size = snprintf(NULL, 0, "[%d, %d, %d]", c->x, c->y, c->z);
-    char* str = (char*) malloc(size);
-    sprintf(str, "[%d, %d, %d]", c->x, c->y, c->z);
+    int xmod = modf(c->x / 2, &c->x);
+    int ymod = modf(c->y / 2, &c->y);
+    int zmod = modf(c->z / 2, &c->z);
+
+    int size;
+    char* str;
+    if (xmod == 0 && ymod == 0 && zmod == 0) {
+        size = snprintf(NULL, 0, "[%d, %d, %d]", (int) c->x, (int) c->y, (int) c->z);
+        str = (char*) malloc(size);
+        sprintf(str, "[%d, %d, %d]", (int) c->x, (int) c->y, (int) c->z);
+    } else if (xmod == 0 && ymod == 0) {
+        size = snprintf(NULL, 0, "[%d, %d, %f]", (int) c->x, (int) c->y, c->z);
+        str = (char*) malloc(size);
+        sprintf(str, "[%d, %d, %f]", (int) c->x, (int) c->y, c->z);
+    } else if (xmod == 0 && zmod == 0) {
+        size = snprintf(NULL, 0, "[%d, %f, %d]", (int) c->x, c->y, (int) c->z);
+        str = (char*) malloc(size);
+        sprintf(str, "[%d, %f, %d]", (int) c->x, c->y, (int) c->z);
+    } else if (ymod == 0 && zmod == 0) {
+        size = snprintf(NULL, 0, "[%f, %d, %d]", c->x, (int) c->y, (int) c->z);
+        str = (char*) malloc(size);
+        sprintf(str, "[%f, %d, %d]", c->x, (int) c->y, (int) c->z);
+    } else if (xmod == 0) {
+        size = snprintf(NULL, 0, "[%d, %f, %f]", (int) c->x, c->y, c->z);
+        str = (char*) malloc(size);
+        sprintf(str, "[%d, %f, %f]", (int) c->x, c->y, c->z);
+    } else if (ymod == 0) {
+        size = snprintf(NULL, 0, "[%f, %d, %f]", c->x, (int) c->y, c->z);
+        str = (char*) malloc(size);
+        sprintf(str, "[%f, %d, %f]", c->x, (int) c->y, c->z);
+    } else if (zmod == 0) {
+        size = snprintf(NULL, 0, "[%f, %f, %d]", c->x, c->y, (int) c->z);
+        str = (char*) malloc(size);
+        sprintf(str, "[%f, %f, %d]", c->x, c->y, (int) c->z);
+    } else {
+        size = snprintf(NULL, 0, "[%f, %f, %f]", c->x, c->y, c->z);
+        str = (char*) malloc(size);
+        sprintf(str, "[%f, %f, %f]", c->x, c->y, c->z);
+    }
+
     return str;
 }
 
@@ -218,13 +244,9 @@ char* Coordinate3D_toString(Coordinate3D* c) {
  * @return The Coordinate3D.
  */
 Coordinate3D* Coordinate3D_fromString(char* str) {
-    int x, y, z;
-    sscanf(str, "[%d, %d, %d]", &x, &y, &z);
-    
-    Coordinate3D* c = (Coordinate3D*) malloc(sizeof(Coordinate3D));
-    *c = createCoordinate3D(x, y, z);
-
-    return c;
+    double x, y, z;
+    sscanf(str, "[%lf, %lf, %lf]", &x, &y, &z);
+    return createCoordinate3D(x, y, z);
 }
 
 #endif
