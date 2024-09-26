@@ -6,7 +6,7 @@ project(levelz-c
     DESCRIPTION "C implementation of the LevelZ File Format"
     HOMEPAGE_URL "https://github.com/LevelZ-File/c-bindings"
 )
-set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD 11)
 
 # Sources
 add_library(levelz-c INTERFACE)
