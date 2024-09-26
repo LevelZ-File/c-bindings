@@ -12,4 +12,7 @@ function(add_test_executable name)
 
     target_compile_options(levelz-test-${name} PRIVATE -coverage)
     target_link_options(levelz-test-${name} PRIVATE -coverage)
+    target_link_libraries(levelz-test-${name} PRIVATE m)
 endfunction()
+
+add_test_executable(coordinate)
