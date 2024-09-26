@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>levelz-c: Coordinate2D Struct Reference</title>
+<title>levelz-c: Level3D Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,55 +87,72 @@ $(function(){ initResizable(false); });
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="structCoordinate2D-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">Coordinate2D Struct Reference</div></div>
+<a href="structLevel3D-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">Level3D Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="coordinate_8h_source.html">coordinate.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="level_8h_source.html">level.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abbef338e19b6ce8442a72d5fdf2b1152" id="r_abbef338e19b6ce8442a72d5fdf2b1152"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbef338e19b6ce8442a72d5fdf2b1152">x</a></td></tr>
-<tr class="separator:abbef338e19b6ce8442a72d5fdf2b1152"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a78d5bdf6ce2466f0be2b34054993ca" id="r_a0a78d5bdf6ce2466f0be2b34054993ca"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a78d5bdf6ce2466f0be2b34054993ca">y</a></td></tr>
-<tr class="separator:a0a78d5bdf6ce2466f0be2b34054993ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf55e50019d866935ca50e8c76b4607f" id="r_acf55e50019d866935ca50e8c76b4607f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structLevelHeader.html">LevelHeader</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acf55e50019d866935ca50e8c76b4607f">headers</a></td></tr>
+<tr class="separator:acf55e50019d866935ca50e8c76b4607f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d152dd8364c553871a06f4766cb0d95" id="r_a1d152dd8364c553871a06f4766cb0d95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structLevelObject3D.html">LevelObject3D</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1d152dd8364c553871a06f4766cb0d95">blocks</a></td></tr>
+<tr class="separator:a1d152dd8364c553871a06f4766cb0d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adecd929cd1a94adcc336d9a9ffc32cb4" id="r_adecd929cd1a94adcc336d9a9ffc32cb4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structCoordinate3D.html">Coordinate3D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adecd929cd1a94adcc336d9a9ffc32cb4">spawn</a></td></tr>
+<tr class="separator:adecd929cd1a94adcc336d9a9ffc32cb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a coordinate in a 2D space. </p>
+<div class="textblock"><p>Represents a 3D Level. </p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="abbef338e19b6ce8442a72d5fdf2b1152" name="abbef338e19b6ce8442a72d5fdf2b1152"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbef338e19b6ce8442a72d5fdf2b1152">&#9670;&#160;</a></span>x</h2>
+<a id="a1d152dd8364c553871a06f4766cb0d95" name="a1d152dd8364c553871a06f4766cb0d95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d152dd8364c553871a06f4766cb0d95">&#9670;&#160;</a></span>blocks</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double Coordinate2D::x</td>
+          <td class="memname"><a class="el" href="structLevelObject3D.html">LevelObject3D</a>** Level3D::blocks</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The x value of the coordinate. </p>
+<p>The blocks in the level. </p>
 
 </div>
 </div>
-<a id="a0a78d5bdf6ce2466f0be2b34054993ca" name="a0a78d5bdf6ce2466f0be2b34054993ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a78d5bdf6ce2466f0be2b34054993ca">&#9670;&#160;</a></span>y</h2>
+<a id="acf55e50019d866935ca50e8c76b4607f" name="acf55e50019d866935ca50e8c76b4607f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf55e50019d866935ca50e8c76b4607f">&#9670;&#160;</a></span>headers</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double Coordinate2D::y</td>
+          <td class="memname"><a class="el" href="structLevelHeader.html">LevelHeader</a>** Level3D::headers</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The y value of the coordinate. </p>
+<p>The headers of the level. </p>
+
+</div>
+</div>
+<a id="adecd929cd1a94adcc336d9a9ffc32cb4" name="adecd929cd1a94adcc336d9a9ffc32cb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adecd929cd1a94adcc336d9a9ffc32cb4">&#9670;&#160;</a></span>spawn</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structCoordinate3D.html">Coordinate3D</a>* Level3D::spawn</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The spawnpoint of the level. </p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>/home/runner/work/c-bindings/c-bindings/include/levelz/<a class="el" href="coordinate_8h_source.html">coordinate.h</a></li>
+<li>/home/runner/work/c-bindings/c-bindings/include/levelz/<a class="el" href="level_8h_source.html">level.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

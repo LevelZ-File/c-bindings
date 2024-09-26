@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['x_0',['x',['../structCoordinate2D.html#af31ee438981a9f3c457372a18dd548c8',1,'Coordinate2D::x'],['../structCoordinate3D.html#ad6b1750431ddfd038a819c8df5b1f134',1,'Coordinate3D::x']]]
+  ['name_0',['name',['../structBlockProperty.html#a60f34b0cdd77cab49901593386b741b7',1,'BlockProperty::name'],['../structBlock.html#a982048aebc3413585b5ba2fb2df133ac',1,'Block::name'],['../structLevelHeader.html#a7032f8e001c7e0e21ccd799d92229404',1,'LevelHeader::name']]]
 ];

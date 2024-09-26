@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['levelobject2d_0',['LevelObject2D',['../structLevelObject2D.html',1,'']]],
-  ['levelobject3d_1',['LevelObject3D',['../structLevelObject3D.html',1,'']]]
+  ['headers_0',['headers',['../structLevel2D.html#a88c9e62cadfcc692c5e3d78618c50d9e',1,'Level2D::headers'],['../structLevel3D.html#acf55e50019d866935ca50e8c76b4607f',1,'Level3D::headers']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['name_0',['name',['../structBlockProperty.html#a60f34b0cdd77cab49901593386b741b7',1,'BlockProperty::name'],['../structBlock.html#a982048aebc3413585b5ba2fb2df133ac',1,'Block::name']]]
+  ['headers_0',['headers',['../structLevel2D.html#a88c9e62cadfcc692c5e3d78618c50d9e',1,'Level2D::headers'],['../structLevel3D.html#acf55e50019d866935ca50e8c76b4607f',1,'Level3D::headers']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.12.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>levelz-c: levelz-c</title>
+<title>levelz-c: LevelHeader Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -56,8 +56,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="doc-content">
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
 $(function(){ initResizable(false); });
@@ -84,47 +82,61 @@ $(function(){ initResizable(false); });
 </div>
 </div>
 
-<div><div class="header">
-  <div class="headertitle"><div class="title">levelz-c </div></div>
+</div><!-- top -->
+<div id="doc-content">
+<div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="structLevelHeader-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">LevelHeader Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__2home_2runner_2work_2c-bindings_2c-bindings_2README"></a></p>
-<blockquote class="doxtable">
-<p>&zwj;Header-only C Parser &amp; API For LevelZ File Format </p>
-</blockquote>
-<p><img src="https://img.shields.io/github/v/release/LevelZ-File/c-bindings" alt="GitHub Release" class="inline"/></p>
-<h1><a class="anchor" id="autotoc_md1"></a>
-Overview</h1>
-<p>Provides C bindings for the LevelZ file format. This library is header-only and does not require any additional dependencies.</p>
-<h1><a class="anchor" id="autotoc_md2"></a>
-Installation</h1>
-<p>Ensure you have <a href="https://cmake.org/">CMake</a> installed on your system, then run the following commands:</p>
-<div class="fragment"><div class="line"># Clone Repo</div>
-<div class="line">git clone https://github.com/LevelZ-File/c-bindings</div>
-<div class="line">cd cpp-bindings</div>
-<div class="line"> </div>
-<div class="line"># Build Project, Install with CMake</div>
-<div class="line">cmake --build . --config Release --target install</div>
-<div class="line"> </div>
-<div class="line">## may require sudo</div>
-<div class="line">sudo cmake --build . --config Release --target install</div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md3"></a>
-Usage</h1>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;levelz.h&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">    <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* coord = createCoordinate2D(0, 0);</div>
-<div class="line">    <span class="keywordflow">return</span> 0;</div>
-<div class="line">}</div>
-<div class="ttc" id="astructCoordinate2D_html"><div class="ttname"><a href="structCoordinate2D.html">Coordinate2D</a></div><div class="ttdef"><b>Definition</b> coordinate.h:11</div></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;levelz.h&gt;</span></div>
-<div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">    Level* l = parseFile(<span class="stringliteral">&quot;path/to/file.lvlz&quot;</span>)</div>
-<div class="line">    return 0;</div>
-<div class="line">}</div>
-</div><!-- fragment --> </div></div><!-- PageDoc -->
-<a href="doxygen_crawl.html"></a>
+
+<p><code>#include &lt;<a class="el" href="level_8h_source.html">level.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a7032f8e001c7e0e21ccd799d92229404" id="r_a7032f8e001c7e0e21ccd799d92229404"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7032f8e001c7e0e21ccd799d92229404">name</a></td></tr>
+<tr class="separator:a7032f8e001c7e0e21ccd799d92229404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afafb96e08605e42ee6de3ac2ddff15b2" id="r_afafb96e08605e42ee6de3ac2ddff15b2"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afafb96e08605e42ee6de3ac2ddff15b2">value</a></td></tr>
+<tr class="separator:afafb96e08605e42ee6de3ac2ddff15b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a header in a level. </p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7032f8e001c7e0e21ccd799d92229404" name="a7032f8e001c7e0e21ccd799d92229404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7032f8e001c7e0e21ccd799d92229404">&#9670;&#160;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* LevelHeader::name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Represents the name of a level header. </p>
+
+</div>
+</div>
+<a id="afafb96e08605e42ee6de3ac2ddff15b2" name="afafb96e08605e42ee6de3ac2ddff15b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afafb96e08605e42ee6de3ac2ddff15b2">&#9670;&#160;</a></span>value</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* LevelHeader::value</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Represents the value of a level header. </p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>/home/runner/work/c-bindings/c-bindings/include/levelz/<a class="el" href="level_8h_source.html">level.h</a></li>
+</ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
