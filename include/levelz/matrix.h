@@ -86,6 +86,15 @@ Coordinate2D* CoordinateMatrix2D_coordinateAt(CoordinateMatrix2D* matrix, int in
 }
 
 /**
+ * Gets the size of a CoordinateMatrix2D.
+ * @param matrix The matrix.
+ * @return The size of the matrix.
+ */
+int CoordinateMatrix2D_size(CoordinateMatrix2D* matrix) {
+    return (matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY);
+}
+
+/**
  * Converts a CoordinateMatrix2D to a string.
  * @param matrix The matrix.
  * @return The string representation of the matrix.
@@ -112,7 +121,7 @@ CoordinateMatrix2D* CoordinateMatrix2D_fromString(char* str) {
 
     int minX, maxX, minY, maxY;
     char* token = strtok(str, "^");
-    char* start = (char*) malloc(strlen(token));
+    char* start = (char*) malloc(strlen(token) + 1);
 
     sscanf(str0, "(%d, %d, %d, %d)^%s", &minX, &maxX, &minY, &maxY, start);
     return create2DCoordinateMatrix(minX, maxX, minY, maxY, start);
@@ -212,6 +221,15 @@ Coordinate3D* CoordinateMatrix3D_coordinateAt(CoordinateMatrix3D* matrix, int in
 }
 
 /**
+ * Gets the size of a CoordinateMatrix3D.
+ * @param matrix The matrix.
+ * @return The size of the matrix.
+ */
+int CoordinateMatrix3D_size(CoordinateMatrix3D* matrix) {
+    return (matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY) * (matrix->maxZ - matrix->minZ);
+}
+
+/**
  * Converts a CoordinateMatrix3D to a string.
  * @param matrix The matrix.
  * @return The string representation of the matrix.
@@ -238,7 +256,7 @@ CoordinateMatrix3D* CoordinateMatrix3D_fromString(char* str) {
 
     int minX, maxX, minY, maxY, minZ, maxZ;
     char* token = strtok(str, "^");
-    char* start = (char*) malloc(strlen(token));
+    char* start = (char*) malloc(strlen(token) + 1);
 
     sscanf(str0, "(%d, %d, %d, %d, %d, %d)^%s", &minX, &maxX, &minY, &maxY, &minZ, &maxZ, start);
     return create3DCoordinateMatrix(minX, maxX, minY, maxY, minZ, maxZ, start);
