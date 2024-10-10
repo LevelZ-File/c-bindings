@@ -275,10 +275,10 @@ typedef struct LevelObject2D {
  * @param coordinate The 2D coordinate of the object.
  * @return A new LevelObject2D.
  */
-LevelObject2D createLevelObject2D(Block* block, Coordinate2D* coordinate) {
-    LevelObject2D o;
-    o.block = block;
-    o.coordinate = coordinate;
+LevelObject2D* createLevelObject2D(Block* block, Coordinate2D* coordinate) {
+    LevelObject2D* o = (LevelObject2D*) malloc(sizeof(LevelObject2D));
+    o->block = block;
+    o->coordinate = coordinate;
     return o;
 }
 
@@ -301,7 +301,7 @@ char* LevelObject2D_toString(LevelObject2D* object) {
  * @param str The string representation of the LevelObject2D.
  * @return The LevelObject2D.
  */
-LevelObject2D LevelObject2D_fromString(char* str) {
+LevelObject2D* LevelObject2D_fromString(char* str) {
     char* blockStr = strtok(str, ":");
     char* coordinateStr = strtok(0, ":");
 
@@ -333,10 +333,10 @@ typedef struct LevelObject3D {
  * @param coordinate The 3D coordinate of the object.
  * @return A new LevelObject3D.
  */
-LevelObject3D createLevelObject3D(Block* block, Coordinate3D* coordinate) {
-    LevelObject3D o;
-    o.block = block;
-    o.coordinate = coordinate;
+LevelObject3D* createLevelObject3D(Block* block, Coordinate3D* coordinate) {
+    LevelObject3D* o = (LevelObject3D*) malloc(sizeof(LevelObject3D));
+    o->block = block;
+    o->coordinate = coordinate;
     return o;
 }
 
@@ -359,7 +359,7 @@ char* LevelObject3D_toString(LevelObject3D* object) {
  * @param str The string representation of the LevelObject3D.
  * @return The LevelObject3D.
  */
-LevelObject3D LevelObject3D_fromString(char* str) {
+LevelObject3D* LevelObject3D_fromString(char* str) {
     char* blockStr = strtok(str, ":");
     char* coordinateStr = strtok(0, ":");
 

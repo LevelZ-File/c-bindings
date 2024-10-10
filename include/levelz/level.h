@@ -76,7 +76,7 @@ typedef struct Level2D {
     /**
      * The blocks in the level.
      */
-    LevelObject2D* blocks[16];
+    LevelObject2D** blocks;
 
     /**
      * The spawnpoint of the level.
@@ -202,6 +202,53 @@ void Level2D_removeHeader(Level2D* level, char* name) {
 }
 
 /**
+ * Adds a block to a Level2D.
+ * @param level The Level2D.
+ * @param block The block to add.
+ */
+void Level2D_addBlock(Level2D* level, LevelObject2D* block) {
+    if (level->blocks == 0) {
+        level->blocks = (LevelObject2D**) malloc(16 * sizeof(LevelObject2D*));
+        for (int i = 0; i < 16; i++) {
+            level->blocks[i] = NULL;
+        }
+
+        level->blocks[0] = block;
+    } else {
+        int blockCount = 0;
+        while (level->blocks[blockCount] != NULL) {
+            blockCount++;
+        }
+
+        level->blocks = (LevelObject2D**) realloc(level->blocks, (blockCount + 1) * sizeof(LevelObject2D*));
+        level->blocks[blockCount] = block;
+    }
+}
+
+/**
+ * Removes a block from a Level2D.
+ * @param level The Level2D.
+ * @param block The block to remove.
+ */
+void Level2D_removeBlock(Level2D* level, LevelObject2D* block) {
+    if (level->blocks == 0) return;
+
+    int i = 0;
+    while (level->blocks[i] != 0) {
+        if (level->blocks[i] == block) {
+            free(level->blocks[i]);
+            
+            for (int j = i; j < sizeof(level->blocks) - 1; j++) {
+                level->blocks[j] = level->blocks[j + 1];
+            }
+            level->blocks[sizeof(level->blocks) - 1] = 0;
+            return;
+        }
+        i++;
+    }
+}
+
+/**
  * Represents a 3D Level.
  */
 typedef struct Level3D {
@@ -307,6 +354,53 @@ void Level3D_removeHeader(Level3D* level, char* name) {
                 level->headers[j] = level->headers[j + 1];
             }
             level->headers[sizeof(level->headers) - 1] = 0;
+            return;
+        }
+        i++;
+    }
+}
+
+/**
+ * Adds a block to a Level3D.
+ * @param level The Level3D.
+ * @param block The block to add.
+ */
+void Level3D_addBlock(Level3D* level, LevelObject3D* block) {
+    if (level->blocks == 0) {
+        level->blocks = (LevelObject3D**) malloc(16 * sizeof(LevelObject3D*));
+        for (int i = 0; i < 16; i++) {
+            level->blocks[i] = NULL;
+        }
+
+        level->blocks[0] = block;
+    } else {
+        int blockCount = 0;
+        while (level->blocks[blockCount] != NULL) {
+            blockCount++;
+        }
+
+        level->blocks = (LevelObject3D**) realloc(level->blocks, (blockCount + 1) * sizeof(LevelObject3D*));
+        level->blocks[blockCount] = block;
+    }
+}
+
+/**
+ * Removes a block from a Level3D.
+ * @param level The Level3D.
+ * @param block The block to remove.
+ */
+void Level3D_removeBlock(Level3D* level, LevelObject3D* block) {
+    if (level->blocks == 0) return;
+
+    int i = 0;
+    while (level->blocks[i] != 0) {
+        if (level->blocks[i] == block) {
+            free(level->blocks[i]);
+            
+            for (int j = i; j < sizeof(level->blocks) - 1; j++) {
+                level->blocks[j] = level->blocks[j + 1];
+            }
+            level->blocks[sizeof(level->blocks) - 1] = 0;
             return;
         }
         i++;
