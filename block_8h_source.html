@@ -303,10 +303,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>} <a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>;</div>
 </div>
 <div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a> createLevelObject2D(<a class="code hl_struct" href="structBlock.html">Block</a>* block, <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* coordinate) {</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a> o;</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    o.<a class="code hl_variable" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">block</a> = block;</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    o.<a class="code hl_variable" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">coordinate</a> = coordinate;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* createLevelObject2D(<a class="code hl_struct" href="structBlock.html">Block</a>* block, <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* coordinate) {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* o = (<a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>));</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    o-&gt;<a class="code hl_variable" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">block</a> = block;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    o-&gt;<a class="code hl_variable" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">coordinate</a> = coordinate;</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordflow">return</span> o;</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>}</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
@@ -320,7 +320,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keywordflow">return</span> str;</div>
 <div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>}</div>
 <div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a> LevelObject2D_fromString(<span class="keywordtype">char</span>* str) {</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* LevelObject2D_fromString(<span class="keywordtype">char</span>* str) {</div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordtype">char</span>* blockStr = strtok(str, <span class="stringliteral">&quot;:&quot;</span>);</div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keywordtype">char</span>* coordinateStr = strtok(0, <span class="stringliteral">&quot;:&quot;</span>);</div>
 <div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
@@ -339,10 +339,10 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>} <a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>;</div>
 </div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span> </div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a> createLevelObject3D(<a class="code hl_struct" href="structBlock.html">Block</a>* block, <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* coordinate) {</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a> o;</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    o.<a class="code hl_variable" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">block</a> = block;</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    o.<a class="code hl_variable" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">coordinate</a> = coordinate;</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* createLevelObject3D(<a class="code hl_struct" href="structBlock.html">Block</a>* block, <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* coordinate) {</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* o = (<a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>));</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    o-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">block</a> = block;</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    o-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">coordinate</a> = coordinate;</div>
 <div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keywordflow">return</span> o;</div>
 <div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>}</div>
 <div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
@@ -356,7 +356,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>    <span class="keywordflow">return</span> str;</div>
 <div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>}</div>
 <div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span> </div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a> LevelObject3D_fromString(<span class="keywordtype">char</span>* str) {</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* LevelObject3D_fromString(<span class="keywordtype">char</span>* str) {</div>
 <div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <span class="keywordtype">char</span>* blockStr = strtok(str, <span class="stringliteral">&quot;:&quot;</span>);</div>
 <div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>    <span class="keywordtype">char</span>* coordinateStr = strtok(0, <span class="stringliteral">&quot;:&quot;</span>);</div>
 <div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>

@@ -5,5 +5,7 @@ var searchData=
   ['levelheader_2',['LevelHeader',['../structLevelHeader.html',1,'']]],
   ['levelobject2d_3',['LevelObject2D',['../structLevelObject2D.html',1,'']]],
   ['levelobject3d_4',['LevelObject3D',['../structLevelObject3D.html',1,'']]],
-  ['levelz_20c_5',['levelz-c',['../index.html',1,'']]]
+  ['levelz_20c_5',['levelz-c',['../index.html',1,'']]],
+  ['levelzline2d_6',['LevelZLine2D',['../structLevelZLine2D.html',1,'']]],
+  ['levelzline3d_7',['LevelZLine3D',['../structLevelZLine3D.html',1,'']]]
 ];
