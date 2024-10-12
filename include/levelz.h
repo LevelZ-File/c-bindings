@@ -49,7 +49,7 @@ LevelHeader* __readHeaders(char** input) {
         if (line == 0) break;
 
         char* name = strtok(line, " ");
-        if (strncmp('@', name, 1) != 1) continue;
+        if (strncmp("@", name, 1) != 1) continue;
         name++;
         
         char* value = strtok(0, " ");
@@ -69,8 +69,8 @@ LevelHeader* __readHeaders(char** input) {
     return headers;
 }
 
-Coordinate2D* __read2DPoints(char* input) {
-    Coordinate2D* points = NULL;
+Coordinate2D** __read2DPoints(char* input) {
+    Coordinate2D** points = NULL;
 
     char* token = strtok(input, "*");
     while (token != NULL) {
@@ -78,13 +78,13 @@ Coordinate2D* __read2DPoints(char* input) {
         if (token[0] == '(' && token[l - 1] == ']') {
             CoordinateMatrix2D* matrix = CoordinateMatrix2D_fromString(token);
 
-            Coordinate2D* matrixPoints = CoordinateMatrix2D_coordinates(matrix);
+            Coordinate2D** matrixPoints = CoordinateMatrix2D_coordinates(matrix);
             if (points == 0)
                 points = matrixPoints;
             else {
                 int size = CoordinateMatrix2D_size(matrix);
                 int length = sizeof(points) / sizeof(Coordinate2D);
-                points = (Coordinate2D*) realloc(points, (length + size) * sizeof(Coordinate2D));
+                points = (Coordinate2D**) realloc(points, (length + size) * sizeof(Coordinate2D));
 
                 for (int i = 0; i < size; i++) {
                     points[length + i] = matrixPoints[i];
@@ -94,11 +94,11 @@ Coordinate2D* __read2DPoints(char* input) {
             Coordinate2D* point = Coordinate2D_fromString(token);
 
             if (points == 0)
-                points = point;
+                points[0] = point;
             else {
                 int length = sizeof(points) / sizeof(Coordinate2D);
-                points = (Coordinate2D*) realloc(points, 2 * sizeof(Coordinate2D));
-                points[l - 1] = *point;
+                points = (Coordinate2D**) realloc(points, 2 * sizeof(Coordinate2D));
+                points[length - 1] = point;
             }
         }
 
@@ -108,8 +108,8 @@ Coordinate2D* __read2DPoints(char* input) {
     return points;
 }
 
-Coordinate3D* __read3DPoints(char* input) {
-    Coordinate3D* points = NULL;
+Coordinate3D** __read3DPoints(char* input) {
+    Coordinate3D** points = NULL;
 
     char* token = strtok(input, "*");
     while (token != NULL) {
@@ -117,13 +117,13 @@ Coordinate3D* __read3DPoints(char* input) {
         if (token[0] == '(' && token[l - 1] == ']') {
             CoordinateMatrix3D* matrix = CoordinateMatrix3D_fromString(token);
 
-            Coordinate3D* matrixPoints = CoordinateMatrix3D_coordinates(matrix);
+            Coordinate3D** matrixPoints = CoordinateMatrix3D_coordinates(matrix);
             if (points == 0)
                 points = matrixPoints;
             else {
                 int size = CoordinateMatrix3D_size(matrix);
                 int length = sizeof(points) / sizeof(Coordinate3D);
-                points = (Coordinate3D*) realloc(points, (length + size) * sizeof(Coordinate3D));
+                points = (Coordinate3D**) realloc(points, (length + size) * sizeof(Coordinate3D));
 
                 for (int i = 0; i < size; i++) {
                     points[length + i] = matrixPoints[i];
@@ -133,11 +133,11 @@ Coordinate3D* __read3DPoints(char* input) {
             Coordinate3D* point = Coordinate3D_fromString(token);
 
             if (points == 0)
-                points = point;
+                points[0] = point;
             else {
                 int length = sizeof(points) / sizeof(Coordinate3D);
-                points = (Coordinate3D*) realloc(points, 2 * sizeof(Coordinate3D));
-                points[l - 1] = *point;
+                points = (Coordinate3D**) realloc(points, 2 * sizeof(Coordinate3D));
+                points[length - 1] = point;
             }
         }
 
@@ -159,7 +159,7 @@ LevelZLine2D* __read2DLine(char* input) {
     char* coordinateStr = strtok(0, ":");
 
     Block* block = Block_fromString(blockStr);
-    Coordinate2D* coordinates = __read2DPoints(coordinateStr);
+    Coordinate2D** coordinates = __read2DPoints(coordinateStr);
 
     line->block = block;
     line->coordinates = coordinates;
@@ -179,7 +179,7 @@ LevelZLine3D* __read3DLine(char* input) {
     char* coordinateStr = strtok(0, ":");
 
     Block* block = Block_fromString(blockStr);
-    Coordinate3D* coordinates = __read3DPoints(coordinateStr);
+    Coordinate3D** coordinates = __read3DPoints(coordinateStr);
 
     line->block = block;
     line->coordinates = coordinates;

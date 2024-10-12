@@ -58,14 +58,14 @@ CoordinateMatrix2D* create2DCoordinateMatrix(int minX, int maxX, int minY, int m
  * @param matrix The matrix.
  * @return A list of coordinates in the matrix.
  */
-Coordinate2D* CoordinateMatrix2D_coordinates(CoordinateMatrix2D* matrix) {
+Coordinate2D** CoordinateMatrix2D_coordinates(CoordinateMatrix2D* matrix) {
     int size = (matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY);
-    Coordinate2D* coordinates = (Coordinate2D*) malloc(size * sizeof(Coordinate2D));
+    Coordinate2D** coordinates = (Coordinate2D**) malloc(size * sizeof(Coordinate2D));
 
     int index = 0;
     for (int x = matrix->minX; x < matrix->maxX; x++) {
         for (int y = matrix->minY; y < matrix->maxY; y++) {
-            coordinates[index] = *createCoordinate2D(x, y);
+            coordinates[index] = createCoordinate2D(x, y);
             index++;
         }
     }
@@ -124,7 +124,9 @@ CoordinateMatrix2D* CoordinateMatrix2D_fromString(char* str) {
     char* start = (char*) malloc(strlen(token) + 1);
 
     sscanf(str0, "(%d, %d, %d, %d)^%s", &minX, &maxX, &minY, &maxY, start);
-    return create2DCoordinateMatrix(minX, maxX, minY, maxY, start);
+
+    Coordinate2D* startCoordinate = Coordinate2D_fromString(start);
+    return create2DCoordinateMatrix(minX, maxX, minY, maxY, startCoordinate);
 }
 
 /**
@@ -190,15 +192,15 @@ CoordinateMatrix3D* create3DCoordinateMatrix(int minX, int maxX, int minY, int m
  * @param matrix The matrix.
  * @return A list of coordinates in the matrix.
  */
-Coordinate3D* CoordinateMatrix3D_coordinates(CoordinateMatrix3D* matrix) {
+Coordinate3D** CoordinateMatrix3D_coordinates(CoordinateMatrix3D* matrix) {
     int size = (matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY) * (matrix->maxZ - matrix->minZ);
-    Coordinate3D* coordinates = (Coordinate3D*) malloc(size * sizeof(Coordinate3D));
+    Coordinate3D** coordinates = (Coordinate3D**) malloc(size * sizeof(Coordinate3D));
 
     int index = 0;
     for (int x = matrix->minX; x < matrix->maxX; x++) {
         for (int y = matrix->minY; y < matrix->maxY; y++) {
             for (int z = matrix->minZ; z < matrix->maxZ; z++) {
-                coordinates[index] = *createCoordinate3D(x, y, z);
+                coordinates[index] = createCoordinate3D(x, y, z);
                 index++;
             }
         }
@@ -259,7 +261,9 @@ CoordinateMatrix3D* CoordinateMatrix3D_fromString(char* str) {
     char* start = (char*) malloc(strlen(token) + 1);
 
     sscanf(str0, "(%d, %d, %d, %d, %d, %d)^%s", &minX, &maxX, &minY, &maxY, &minZ, &maxZ, start);
-    return create3DCoordinateMatrix(minX, maxX, minY, maxY, minZ, maxZ, start);
+
+    Coordinate3D* startCoordinate = Coordinate3D_fromString(start);
+    return create3DCoordinateMatrix(minX, maxX, minY, maxY, minZ, maxZ, startCoordinate);
 }
 
 #endif
