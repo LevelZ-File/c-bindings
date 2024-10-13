@@ -16,3 +16,4 @@ function(add_test_executable name)
 endfunction()
 
 add_test_executable(coordinate)
+add_test_executable(block)
