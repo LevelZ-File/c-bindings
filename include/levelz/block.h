@@ -65,43 +65,6 @@ Block* createBlock(char* name) {
 }
 
 /**
- * Sets a property of a Block.
- * @param b The block.
- * @param name The name of the property.
- * @param value The value of the property.
- */
-void Block_setProperty(Block* b, char* name, char* value) {
-    if (b == 0) return;
-    if (name == 0) return;
-    if (value == 0) return;
-
-    BlockProperty* p = (BlockProperty*) malloc(sizeof(BlockProperty));
-    p->name = name;
-    p->value = value;
-    
-    for (int i = 0; i < b->propertyCount; i++) {
-        if (strcmp(b->properties[i]->name, name) == 0) {
-            b->properties[i] = p;
-            return;
-        }
-    }
-
-    if (b->propertyCount >= b->propertyCapacity) {
-        b->propertyCapacity *= 2;
-        b->properties = (BlockProperty**) realloc(b->properties, b->propertyCapacity * sizeof(BlockProperty*));
-    }
-
-    b->properties[b->propertyCount++] = p;
-
-    if (sizeof(b->properties) < 16)
-        b->properties[sizeof(b->properties)] = p;
-    else {
-        b->properties = (BlockProperty**) realloc(b->properties, sizeof(b->properties) * 2);
-        b->properties[sizeof(b->properties)] = p;
-    }
-}
-
-/**
  * Gets the value of a property of a Block.
  * @param b The block.
  * @param name The name of the property.
@@ -117,7 +80,40 @@ char* Block_getProperty(Block* b, char* name) {
         }
     }
 
-    return 0;
+    return "";
+}
+
+/**
+ * Sets a property of a Block.
+ * @param b The block.
+ * @param name The name of the property.
+ * @param value The value of the property.
+ */
+void Block_setProperty(Block* b, char* name, char* value) {
+    if (b == 0) return;
+    if (name == 0) return;
+    if (value == 0) return;
+
+    for (int i = 0; i < b->propertyCount; i++) {
+        if (strcmp(b->properties[i]->name, name) == 0) {
+            b->properties[i]->value = value;
+            return;
+        }
+    }
+
+    BlockProperty* p = (BlockProperty*) malloc(sizeof(BlockProperty));
+    p->name = strcpy((char*) malloc(strlen(name) + 1), name);
+    p->value = strcpy((char*) malloc(strlen(value) + 1), value);
+
+    if (b->propertyCount == b->propertyCapacity) {
+        b->propertyCapacity *= 2;
+        b->properties = (BlockProperty**) realloc(b->properties, b->propertyCapacity * sizeof(BlockProperty*));
+    }
+
+    b->properties[b->propertyCount] = p;
+    b->propertyCount++;
+
+    return;
 }
 
 /**
@@ -184,69 +180,45 @@ char* Block_toString(Block* b) {
  * @param str The string representation of the block.
  * @return The Block.
  */
-Block* Block_fromString(char* str) {
+Block* Block_fromString(const char* str) {
     if (str == 0) return 0;
-    if (strlen(str) == 0) return 0;
 
-    char* start = strstr(str, "<");
-    if (start == 0) {
-        Block* b = (Block*) malloc(sizeof(Block));
+    int l = strlen(str);
+    if (l == 0) return 0;
 
-        b->name = str;
-        b->propertyCount = 0;
-        b->propertyCapacity = _BLOCK_PROPERTIES_INIT_CAPACITY;
+    char* strCopy = (char*) malloc(l + 1);
+    strcpy(strCopy, str);
+    strCopy[l - 1] = '\0';
 
+    char* name = strtok(strCopy, "<");
+    if (name == 0) {
+        free(strCopy);
+        return 0;
+    }
+
+    Block* b = createBlock(name);
+
+    char* properties = strtok(0, "<");
+    if (properties == 0) {
+        free(strCopy);
         return b;
     }
 
-    int startIndex = start - str;
-    char* name = (char*) malloc(startIndex + 1);
-
-    for (int i = 0; i < startIndex; i++) {
-        name[i] = str[i];
-    }
-    name[startIndex] = '\0';
-
-    char* end = strstr(str, ">");
-    if (end == 0) return 0;
-
-    Block* b = (Block*) malloc(sizeof(Block));
-    b->name = name;
-    
-    char* property = 0;
+    char* property = strtok(properties, "=,");
+    char* key = 0;
     char* value = 0;
-    int valueIndex;
-    for (int i = start - str; i < end - str; i++) {
-        char c = str[i];
+    while (property != 0) {
+        if (key == 0) {
+            key = property;
+        } else {
+            value = property;
+            Block_setProperty(b, key, value);
 
-        switch (c) {
-            case '=': {
-                valueIndex = i;
-                property = (char*) malloc(i - startIndex + 1);
-
-                for (int j = startIndex; j < i; j++) {
-                    property[j - startIndex] = str[j];
-                }
-                property[i - startIndex] = '\0';
-                break;
-            }
-            case ',': {
-                value = (char*) malloc(i - valueIndex + 1);
-
-                for (int j = valueIndex; j < i; j++) {
-                    value[j - valueIndex] = str[j];
-                }
-                value[i - valueIndex] = '\0';
-                Block_setProperty(b, property, value);
-
-                free(property);
-                free(value);
-                break;
-            }
-            default: {
-                break;
-            }
+            key = 0;
+            value = 0;
         }
+
+        property = strtok(0, "=,");
     }
 
     return b;
