@@ -17,3 +17,4 @@ endfunction()
 
 add_test_executable(coordinate)
 add_test_executable(block)
+add_test_executable(matrix)
