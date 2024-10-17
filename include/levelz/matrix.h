@@ -113,20 +113,34 @@ char* CoordinateMatrix2D_toString(CoordinateMatrix2D* matrix) {
  * @param str The string representation of the matrix.
  * @return The CoordinateMatrix2D.
  */
-CoordinateMatrix2D* CoordinateMatrix2D_fromString(char* str) {
+CoordinateMatrix2D* CoordinateMatrix2D_fromString(const char* str) {
     if (str == 0) return 0;
 
-    char* str0 = (char*) malloc(strlen(str));
+    char* str0 = (char*) malloc(strlen(str) + 1);
     strcpy(str0, str);
 
-    int minX, maxX, minY, maxY;
-    char* token = strtok(str, "^");
-    char* start = (char*) malloc(strlen(token) + 1);
+    int minX, minY, maxX, maxY;
+    double x, y;
 
-    sscanf(str0, "(%d, %d, %d, %d)^%s", &minX, &maxX, &minY, &maxY, start);
+    char* token = strtok(str0, "()[]^, \t");
+    int i = 0;
+    while (token != 0) {
+        switch (i) {
+            case 0: minX = atoi(token); break;
+            case 1: maxX = atoi(token); break;
+            case 2: minY = atoi(token); break;
+            case 3: maxY = atoi(token); break;
+            case 4: x = atof(token); break;
+            case 5: y = atof(token); break;
+        }
 
-    Coordinate2D* startCoordinate = Coordinate2D_fromString(start);
-    return create2DCoordinateMatrix(minX, maxX, minY, maxY, startCoordinate);
+        token = strtok(0, "()[]^, \t");
+        i++;
+    }
+
+    free(str0);
+    Coordinate2D* start = createCoordinate2D(x, y);
+    return create2DCoordinateMatrix(minX, maxX, minY, maxY, start);
 }
 
 /**
@@ -253,17 +267,34 @@ char* CoordinateMatrix3D_toString(CoordinateMatrix3D* matrix) {
 CoordinateMatrix3D* CoordinateMatrix3D_fromString(char* str) {
     if (str == 0) return 0;
 
-    char* str0 = (char*) malloc(strlen(str));
+    char* str0 = (char*) malloc(strlen(str) + 1);
     strcpy(str0, str);
 
-    int minX, maxX, minY, maxY, minZ, maxZ;
-    char* token = strtok(str, "^");
-    char* start = (char*) malloc(strlen(token) + 1);
+    int minX, minY, maxX, maxY, minZ, maxZ;
+    double x, y, z;
 
-    sscanf(str0, "(%d, %d, %d, %d, %d, %d)^%s", &minX, &maxX, &minY, &maxY, &minZ, &maxZ, start);
+    char* token = strtok(str0, "()[]^, \t");
+    int i = 0;
+    while (token != 0) {
+        switch (i) {
+            case 0: minX = atoi(token); break;
+            case 1: maxX = atoi(token); break;
+            case 2: minY = atoi(token); break;
+            case 3: maxY = atoi(token); break;
+            case 4: minZ = atoi(token); break;
+            case 5: maxZ = atoi(token); break;
+            case 6: x = atof(token); break;
+            case 7: y = atof(token); break;
+            case 8: z = atof(token); break;
+        }
 
-    Coordinate3D* startCoordinate = Coordinate3D_fromString(start);
-    return create3DCoordinateMatrix(minX, maxX, minY, maxY, minZ, maxZ, startCoordinate);
+        token = strtok(0, "()[]^, \t");
+        i++;
+    }
+
+    free(str0);
+    Coordinate3D* start = createCoordinate3D(x, y, z);
+    return create3DCoordinateMatrix(minX, maxX, minY, maxY, minZ, maxZ, start);
 }
 
 #endif
