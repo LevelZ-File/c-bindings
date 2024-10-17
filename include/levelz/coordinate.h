@@ -78,29 +78,8 @@ Coordinate2D* Coordinate2D_subtract(Coordinate2D* a, Coordinate2D* b) {
  * @return The string representation of the coordinate.
  */
 char* Coordinate2D_toString(Coordinate2D* c) {
-    int xmod = modf(c->x / 2, &c->x);
-    int ymod = modf(c->y / 2, &c->y);
-
-    int size;
-    char* str;
-    if (xmod == 0 && ymod == 0) {
-        size = snprintf(NULL, 0, "[%d, %d]", (int) c->x, (int) c->y);
-        str = (char*) malloc(size);
-        sprintf(str, "[%d, %d]", (int) c->x, (int) c->y);
-    } else if (xmod == 0) {
-        size = snprintf(NULL, 0, "[%d, %f]", (int) c->x, c->y);
-        str = (char*) malloc(size);
-        sprintf(str, "[%d, %f]", (int) c->x, c->y);
-    } else if (ymod == 0) {
-        size = snprintf(NULL, 0, "[%f, %d]", c->x, (int) c->y);
-        str = (char*) malloc(size);
-        sprintf(str, "[%f, %d]", c->x, (int) c->y);
-    } else {
-        size = snprintf(NULL, 0, "[%f, %f]", c->x, c->y);
-        str = (char*) malloc(size);
-        sprintf(str, "[%f, %f]", c->x, c->y);
-    }
-    
+    char* str = (char*) malloc(20);
+    sprintf(str, "[%g, %g]", c->x, c->y);
     return str;
 }
 
@@ -109,9 +88,17 @@ char* Coordinate2D_toString(Coordinate2D* c) {
  * @param str The string representation of the coordinate.
  * @return The Coordinate2D.
  */
-Coordinate2D* Coordinate2D_fromString(char* str) {
-    double x, y;
-    sscanf(str, "[%lf, %lf]", &x, &y);
+Coordinate2D* Coordinate2D_fromString(const char* str) {
+    char* str0 = (char*) malloc(strlen(str) + 1);
+    strcpy(str0, str);
+
+    char* x0 = strtok(str0, "[], \t");
+    double x = atof(x0);
+
+    char* y0 = strtok(0, "[], \t");
+    double y = atof(y0);
+
+    free(str0);
     return createCoordinate2D(x, y);
 }
 
@@ -195,46 +182,8 @@ Coordinate3D* Coordinate3D_subtract(Coordinate3D* a, Coordinate3D* b) {
  * @return The string representation of the coordinate.
  */
 char* Coordinate3D_toString(Coordinate3D* c) {
-    int xmod = modf(c->x / 2, &c->x);
-    int ymod = modf(c->y / 2, &c->y);
-    int zmod = modf(c->z / 2, &c->z);
-
-    int size;
-    char* str;
-    if (xmod == 0 && ymod == 0 && zmod == 0) {
-        size = snprintf(NULL, 0, "[%d, %d, %d]", (int) c->x, (int) c->y, (int) c->z);
-        str = (char*) malloc(size);
-        sprintf(str, "[%d, %d, %d]", (int) c->x, (int) c->y, (int) c->z);
-    } else if (xmod == 0 && ymod == 0) {
-        size = snprintf(NULL, 0, "[%d, %d, %f]", (int) c->x, (int) c->y, c->z);
-        str = (char*) malloc(size);
-        sprintf(str, "[%d, %d, %f]", (int) c->x, (int) c->y, c->z);
-    } else if (xmod == 0 && zmod == 0) {
-        size = snprintf(NULL, 0, "[%d, %f, %d]", (int) c->x, c->y, (int) c->z);
-        str = (char*) malloc(size);
-        sprintf(str, "[%d, %f, %d]", (int) c->x, c->y, (int) c->z);
-    } else if (ymod == 0 && zmod == 0) {
-        size = snprintf(NULL, 0, "[%f, %d, %d]", c->x, (int) c->y, (int) c->z);
-        str = (char*) malloc(size);
-        sprintf(str, "[%f, %d, %d]", c->x, (int) c->y, (int) c->z);
-    } else if (xmod == 0) {
-        size = snprintf(NULL, 0, "[%d, %f, %f]", (int) c->x, c->y, c->z);
-        str = (char*) malloc(size);
-        sprintf(str, "[%d, %f, %f]", (int) c->x, c->y, c->z);
-    } else if (ymod == 0) {
-        size = snprintf(NULL, 0, "[%f, %d, %f]", c->x, (int) c->y, c->z);
-        str = (char*) malloc(size);
-        sprintf(str, "[%f, %d, %f]", c->x, (int) c->y, c->z);
-    } else if (zmod == 0) {
-        size = snprintf(NULL, 0, "[%f, %f, %d]", c->x, c->y, (int) c->z);
-        str = (char*) malloc(size);
-        sprintf(str, "[%f, %f, %d]", c->x, c->y, (int) c->z);
-    } else {
-        size = snprintf(NULL, 0, "[%f, %f, %f]", c->x, c->y, c->z);
-        str = (char*) malloc(size);
-        sprintf(str, "[%f, %f, %f]", c->x, c->y, c->z);
-    }
-
+    char* str = (char*) malloc(20);
+    sprintf(str, "[%g, %g, %g]", c->x, c->y, c->z);
     return str;
 }
 
@@ -244,8 +193,19 @@ char* Coordinate3D_toString(Coordinate3D* c) {
  * @return The Coordinate3D.
  */
 Coordinate3D* Coordinate3D_fromString(char* str) {
-    double x, y, z;
-    sscanf(str, "[%lf, %lf, %lf]", &x, &y, &z);
+    char* str0 = (char*) malloc(strlen(str));
+    strcpy(str0, str);
+
+    char* x0 = strtok(str0, "[], \t");
+    double x = atof(x0);
+
+    char* y0 = strtok(0, "[], \t");
+    double y = atof(y0);
+
+    char* z0 = strtok(0, "[], \t");
+    double z = atof(z0);
+
+    free(str0);
     return createCoordinate3D(x, y, z);
 }
 

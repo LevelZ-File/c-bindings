@@ -51,7 +51,6 @@ typedef struct Block {
 
 /**
  * Creates a new Block.
- * 
  * @param name The name of the block.
  */
 Block* createBlock(char* name) {
