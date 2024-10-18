@@ -7,6 +7,7 @@
 
 #include "block.h"
 #include "coordinate.h"
+#include "matrix.h"
 
 /**
  * Represents a header in a level.
@@ -55,10 +56,13 @@ char* LevelHeader_toString(LevelHeader* header) {
  * @param str The string representation of the LevelHeader.
  * @return The LevelHeader.
  */
-LevelHeader* LevelHeader_fromString(char* str) {
+LevelHeader* LevelHeader_fromString(const char* str) {
     if (str == 0) return 0;
 
-    char* name = strtok(str, " ") + 1;
+    char* str0 = (char*) malloc(strlen(str) + 1);
+    strcpy(str0, str);
+
+    char* name = strtok(str0, " ") + 1;
     char* value = strtok(0, " ");
 
     return createLevelHeader(name, value);
@@ -137,18 +141,35 @@ int Level2D_getHeaderCount(Level2D* level) {
 }
 
 /**
+ * Gets a header from a Level2D.
+ * @param level The Level2D.
+ * @param name The name of the header.
+ * @return The value of the header.
+ */
+char* Level2D_getHeader(Level2D* level, char* name) {
+    if (level->headers == 0) return 0;
+
+    int i = 0;
+    while (level->headers[i] != 0) {
+        if (strcmp(level->headers[i]->name, name) == 0) {
+            return level->headers[i]->value;
+        }
+        i++;
+    }
+
+    return 0;
+}
+
+/**
  * Adds a header to a Level2D.
  * @param level Level to add the header to.
  * @param h The header to add.
  */
 void Level2D_setHeader(Level2D* level, LevelHeader* h) {
     if (level->headers == 0) {
-        level->headers = (LevelHeader**) malloc(16 * sizeof(LevelHeader*));
-        for (int i = 0; i < 16; i++) {
-            level->headers[i] = NULL;
-        }
-
+        level->headers = (LevelHeader**) malloc(2 * sizeof(LevelHeader*));
         level->headers[0] = h;
+        level->headers[1] = 0;
     } else {
         int headerCount = Level2D_getHeaderCount(level);
         for (int i = 0; i < headerCount; i++) {
@@ -157,8 +178,9 @@ void Level2D_setHeader(Level2D* level, LevelHeader* h) {
                 header->value = h->value;
                 return;
             } else {
-                level->headers = (LevelHeader**) realloc(level->headers, (i + 1) * sizeof(LevelHeader*));
-                level->headers[i] = h;
+                level->headers = (LevelHeader**) realloc(level->headers, (headerCount + 2) * sizeof(LevelHeader*));
+                level->headers[headerCount] = h;
+                level->headers[headerCount + 1] = 0;
             }
         }
     }
@@ -202,27 +224,83 @@ void Level2D_removeHeader(Level2D* level, char* name) {
 }
 
 /**
+ * Gets the number of blocks in a Level2D.
+ * @param level The Level2D.
+ * @return The number of blocks in the Level2D.
+ */
+int Level2D_getBlockCount(Level2D* level) {
+    int blockCount = 0;
+    while (level->blocks[blockCount] != NULL) {
+        blockCount++;
+    }
+
+    return blockCount;
+}
+
+/**
+ * Gets a block from a Level2D.
+ * @param level The Level2D.
+ * @param coordinate The coordinate of the block.
+ * @return The block at the coordinate, or 0 if no block is found.
+ */
+Block* Level2D_getBlock(Level2D* level, Coordinate2D* coordinate) {
+    if (level->blocks == 0) return 0;
+
+    int i = 0;
+    while (level->blocks[i] != 0) {
+        if (level->blocks[i]->coordinate->x == coordinate->x && level->blocks[i]->coordinate->y == coordinate->y) {
+            return level->blocks[i]->block;
+        }
+        i++;
+    }
+
+    return 0;
+}
+
+/**
  * Adds a block to a Level2D.
  * @param level The Level2D.
  * @param block The block to add.
  */
 void Level2D_addBlock(Level2D* level, LevelObject2D* block) {
+    if (level == 0) return;
+    if (block == 0) return;
+
     if (level->blocks == 0) {
         level->blocks = (LevelObject2D**) malloc(16 * sizeof(LevelObject2D*));
-        for (int i = 0; i < 16; i++) {
-            level->blocks[i] = NULL;
-        }
-
         level->blocks[0] = block;
+        level->blocks[1] = 0;
     } else {
-        int blockCount = 0;
-        while (level->blocks[blockCount] != NULL) {
-            blockCount++;
+        int size = Level2D_getBlockCount(level);
+        for (int i = 0; i < size; i++) {
+            Coordinate2D* c = level->blocks[i]->coordinate;
+            if (c->x == block->coordinate->x && c->y == block->coordinate->y) {
+                level->blocks[i] = block;
+                return;
+            }
         }
 
-        level->blocks = (LevelObject2D**) realloc(level->blocks, (blockCount + 1) * sizeof(LevelObject2D*));
-        level->blocks[blockCount] = block;
+        level->blocks = (LevelObject2D**) realloc(level->blocks, (size + 2) * sizeof(LevelObject2D*));
+        level->blocks[size] = block;
+        level->blocks[size + 1] = 0;
     }
+}
+
+/**
+ * Adds a block to a Level2D on a matrix of coordinates.
+ * @param level The Level2D.
+ * @param block The block to add.
+ * @param matrix The matrix of coordinates to add the block to.
+ */
+void Level2D_addMatrix(Level2D* level, Block* block, CoordinateMatrix2D* matrix) {
+    int size = CoordinateMatrix2D_size(matrix);
+    Coordinate2D** coordinates = CoordinateMatrix2D_coordinates(matrix);
+
+    for (int i = 0; i < size; i++) {
+        Coordinate2D* coordinate = coordinates[i];
+        Level2D_addBlock(level, createLevelObject2D(block, coordinate));
+    }
+
 }
 
 /**
@@ -246,6 +324,27 @@ void Level2D_removeBlock(Level2D* level, LevelObject2D* block) {
         }
         i++;
     }
+}
+
+/**
+ * Gets the number of blocks in a Level2D with a specific name.
+ * @param level The Level2D.
+ * @param name The name of the block.
+ * @return The number of blocks in the Level2D with the name.
+ */
+int Level2D_blockCount(Level2D* level, const char* name) {
+    if (level == 0) return 0;
+    if (level->blocks == 0) return 0;
+    if (name == 0) return 0;
+
+    int count = 0;
+    for (int i = 0; i < Level2D_getBlockCount(level); i++) {
+        if (strcmp(level->blocks[i]->block->name, name) == 0) {
+            count++;
+        }
+    }
+
+    return count;
 }
 
 /**
@@ -296,18 +395,35 @@ int Level3D_getHeaderCount(Level3D* level) {
 }
 
 /**
+ * Gets a header from a Level3D.
+ * @param level The Level3D.
+ * @param name The name of the header.
+ * @return The value of the header.
+ */
+char* Level3D_getHeader(Level3D* level, char* name) {
+    if (level->headers == 0) return 0;
+
+    int i = 0;
+    while (level->headers[i] != 0) {
+        if (strcmp(level->headers[i]->name, name) == 0) {
+            return level->headers[i]->value;
+        }
+        i++;
+    }
+
+    return 0;
+}
+
+/**
  * Adds a header to a Level3D.
  * @param level Level to add the header to.
  * @param h The header to add.
  */
 void Level3D_setHeader(Level3D* level, LevelHeader* h) {
     if (level->headers == 0) {
-        level->headers = (LevelHeader**) malloc(16 * sizeof(LevelHeader*));
-        for (int i = 0; i < 16; i++) {
-            level->headers[i] = NULL;
-        }
-        
+        level->headers = (LevelHeader**) malloc(2 * sizeof(LevelHeader*));
         level->headers[0] = h;
+        level->headers[1] = 0;
     } else {
         int headerCount = Level3D_getHeaderCount(level);
         for (int i = 0; i < headerCount; i++) {
@@ -316,8 +432,9 @@ void Level3D_setHeader(Level3D* level, LevelHeader* h) {
                 header->value = h->value;
                 return;
             } else {
-                level->headers = (LevelHeader**) realloc(level->headers, (i + 1) * sizeof(LevelHeader*));
-                level->headers[i] = h;
+                level->headers = (LevelHeader**) realloc(level->headers, (headerCount + 1) * sizeof(LevelHeader*));
+                level->headers[headerCount] = h;
+                level->headers[headerCount + 1] = 0;
             }
         }
     }
@@ -361,6 +478,40 @@ void Level3D_removeHeader(Level3D* level, char* name) {
 }
 
 /**
+ * Gets a block from a Level3D.
+ * @param level The Level3D.
+ * @param coordinate The coordinate of the block.
+ * @return The block at the coordinate, or 0 if no block is found.
+ */
+Block* Level3D_getBlock(Level3D* level, Coordinate3D* coordinate) {
+    if (level->blocks == 0) return 0;
+
+    int i = 0;
+    while (level->blocks[i] != 0) {
+        if (level->blocks[i]->coordinate->x == coordinate->x && level->blocks[i]->coordinate->y == coordinate->y && level->blocks[i]->coordinate->z == coordinate->z) {
+            return level->blocks[i]->block;
+        }
+        i++;
+    }
+
+    return 0;
+}
+
+/**
+ * Gets the number of blocks in a Level3D.
+ * @param level The Level3D.
+ * @return The number of blocks in the Level3D.
+ */
+int Level3D_getBlockCount(Level3D* level) {
+    int blockCount = 0;
+    while (level->blocks[blockCount] != NULL) {
+        blockCount++;
+    }
+
+    return blockCount;
+}
+
+/**
  * Adds a block to a Level3D.
  * @param level The Level3D.
  * @param block The block to add.
@@ -368,19 +519,37 @@ void Level3D_removeHeader(Level3D* level, char* name) {
 void Level3D_addBlock(Level3D* level, LevelObject3D* block) {
     if (level->blocks == 0) {
         level->blocks = (LevelObject3D**) malloc(16 * sizeof(LevelObject3D*));
-        for (int i = 0; i < 16; i++) {
-            level->blocks[i] = NULL;
-        }
-
         level->blocks[0] = block;
+        level->blocks[1] = 0;
     } else {
-        int blockCount = 0;
-        while (level->blocks[blockCount] != NULL) {
-            blockCount++;
+        int size = Level3D_getBlockCount(level);
+
+        for (int i = 0; i < size; i++) {
+            Coordinate3D* c = level->blocks[i]->coordinate;
+            if (c->x == block->coordinate->x && c->y == block->coordinate->y && c->z == block->coordinate->z) {
+                level->blocks[i] = block;
+                return;
+            }
         }
 
-        level->blocks = (LevelObject3D**) realloc(level->blocks, (blockCount + 1) * sizeof(LevelObject3D*));
-        level->blocks[blockCount] = block;
+        level->blocks = (LevelObject3D**) realloc(level->blocks, (size + 2) * sizeof(LevelObject3D*));
+        level->blocks[size] = block;
+        level->blocks[size + 1] = 0;
+    }
+}
+
+/**
+ * Adds a block to a Level3D on a matrix of coordinates.
+ * @param level The Level3D.
+ * @param block The block to add.
+ * @param matrix The matrix of coordinates to add the block to.
+ */
+void Level3D_addMatrix(Level3D* level, Block* block, CoordinateMatrix3D* matrix) {
+    int size = CoordinateMatrix3D_size(matrix);
+    Coordinate3D** coordinates = CoordinateMatrix3D_coordinates(matrix);
+    for (int i = 0; i < size; i++) {
+        Coordinate3D* coordinate = coordinates[i];
+        Level3D_addBlock(level, createLevelObject3D(block, coordinate));
     }
 }
 
@@ -405,6 +574,27 @@ void Level3D_removeBlock(Level3D* level, LevelObject3D* block) {
         }
         i++;
     }
+}
+
+/**
+ * Gets the number of blocks in a Level3D with a specific name.
+ * @param level The Level3D.
+ * @param name The name of the block.
+ * @return The number of blocks in the Level3D with the name.
+ */
+int Level3D_blockCount(Level3D* level, const char* name) {
+    if (level == 0) return 0;
+    if (level->blocks == 0) return 0;
+    if (name == 0) return 0;
+
+    int count = 0;
+    for (int i = 0; i < Level3D_getBlockCount(level); i++) {
+        if (strcmp(level->blocks[i]->block->name, name) == 0) {
+            count++;
+        }
+    }
+
+    return count;
 }
 
 #endif
