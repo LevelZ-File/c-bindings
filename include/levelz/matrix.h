@@ -54,17 +54,31 @@ CoordinateMatrix2D* create2DCoordinateMatrix(int minX, int maxX, int minY, int m
 }
 
 /**
+ * Gets the size of a CoordinateMatrix2D.
+ * @param matrix The matrix.
+ * @return The size of the matrix.
+ */
+int CoordinateMatrix2D_size(CoordinateMatrix2D* matrix) {
+    return ((matrix->maxX + 1) - matrix->minX) * ((matrix->maxY + 1) - matrix->minY);
+}
+
+/**
  * Gets the coordinates of a CoordinateMatrix2D.
  * @param matrix The matrix.
  * @return A list of coordinates in the matrix.
  */
 Coordinate2D** CoordinateMatrix2D_coordinates(CoordinateMatrix2D* matrix) {
-    int size = (matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY);
+    int size = CoordinateMatrix2D_size(matrix);
     Coordinate2D** coordinates = (Coordinate2D**) malloc(size * sizeof(Coordinate2D));
 
+    int minX = matrix->minX + matrix->start->x;
+    int minY = matrix->minY + matrix->start->y;
+    int maxX = matrix->maxX + matrix->start->x;
+    int maxY = matrix->maxY + matrix->start->y;
+
     int index = 0;
-    for (int x = matrix->minX; x < matrix->maxX; x++) {
-        for (int y = matrix->minY; y < matrix->maxY; y++) {
+    for (int x = minX; x <= maxX; x++) {
+        for (int y = minY; y <= maxY; y++) {
             coordinates[index] = createCoordinate2D(x, y);
             index++;
         }
@@ -83,15 +97,6 @@ Coordinate2D* CoordinateMatrix2D_coordinateAt(CoordinateMatrix2D* matrix, int in
     int x = matrix->minX + (index % (matrix->maxX - matrix->minX));
     int y = matrix->minY + (index / (matrix->maxX - matrix->minX));
     return createCoordinate2D(x, y);
-}
-
-/**
- * Gets the size of a CoordinateMatrix2D.
- * @param matrix The matrix.
- * @return The size of the matrix.
- */
-int CoordinateMatrix2D_size(CoordinateMatrix2D* matrix) {
-    return (matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY);
 }
 
 /**
@@ -202,18 +207,34 @@ CoordinateMatrix3D* create3DCoordinateMatrix(int minX, int maxX, int minY, int m
 }
 
 /**
+ * Gets the size of a CoordinateMatrix3D.
+ * @param matrix The matrix.
+ * @return The size of the matrix.
+ */
+int CoordinateMatrix3D_size(CoordinateMatrix3D* matrix) {
+    return ((matrix->maxX + 1) - matrix->minX) * ((matrix->maxY + 1) - matrix->minY) * ((matrix->maxZ + 1) - matrix->minZ);
+}
+
+/**
  * Gets the coordinates of a CoordinateMatrix3D.
  * @param matrix The matrix.
  * @return A list of coordinates in the matrix.
  */
 Coordinate3D** CoordinateMatrix3D_coordinates(CoordinateMatrix3D* matrix) {
-    int size = (matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY) * (matrix->maxZ - matrix->minZ);
+    int size = CoordinateMatrix3D_size(matrix);
     Coordinate3D** coordinates = (Coordinate3D**) malloc(size * sizeof(Coordinate3D));
 
+    int minX = matrix->minX + matrix->start->x;
+    int minY = matrix->minY + matrix->start->y;
+    int minZ = matrix->minZ + matrix->start->z;
+    int maxX = matrix->maxX + matrix->start->x;
+    int maxY = matrix->maxY + matrix->start->y;
+    int maxZ = matrix->maxZ + matrix->start->z;
+
     int index = 0;
-    for (int x = matrix->minX; x < matrix->maxX; x++) {
-        for (int y = matrix->minY; y < matrix->maxY; y++) {
-            for (int z = matrix->minZ; z < matrix->maxZ; z++) {
+    for (int x = minX; x <= maxX; x++) {
+        for (int y = minY; y <= maxY; y++) {
+            for (int z = minZ; z <= maxZ; z++) {
                 coordinates[index] = createCoordinate3D(x, y, z);
                 index++;
             }
@@ -234,15 +255,6 @@ Coordinate3D* CoordinateMatrix3D_coordinateAt(CoordinateMatrix3D* matrix, int in
     int y = matrix->minY + ((index / (matrix->maxX - matrix->minX)) % (matrix->maxY - matrix->minY));
     int z = matrix->minZ + (index / ((matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY)));
     return createCoordinate3D(x, y, z);
-}
-
-/**
- * Gets the size of a CoordinateMatrix3D.
- * @param matrix The matrix.
- * @return The size of the matrix.
- */
-int CoordinateMatrix3D_size(CoordinateMatrix3D* matrix) {
-    return (matrix->maxX - matrix->minX) * (matrix->maxY - matrix->minY) * (matrix->maxZ - matrix->minZ);
 }
 
 /**
