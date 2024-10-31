@@ -170,7 +170,10 @@ char* Block_toString(Block* b) {
             sprintf(str, "%s, ", str);
     }
 
-    sprintf(str, "%s>", str);
+    int l = strlen(str);
+    if (str[l - 1] != '>')
+        sprintf(str, "%s>", str);
+
     return str;
 }
 
@@ -185,21 +188,23 @@ Block* Block_fromString(const char* str) {
     int l = strlen(str);
     if (l == 0) return 0;
 
-    char* strCopy = (char*) malloc(l + 1);
-    strcpy(strCopy, str);
-    strCopy[l - 1] = '\0';
+    char* str0 = (char*) malloc(l + 1);
+    strcpy(str0, str);
 
-    char* name = strtok(strCopy, "<");
+    char* name = strtok(str0, "<");
     if (name == 0) {
-        free(strCopy);
+        free(str0);
         return 0;
     }
 
-    Block* b = createBlock(name);
+    char* name0 = (char*) malloc(strlen(name) + 1);
+    strcpy(name0, name);
+
+    Block* b = createBlock(name0);
 
     char* properties = strtok(0, "<");
     if (properties == 0) {
-        free(strCopy);
+        free(str0);
         return b;
     }
 
@@ -210,7 +215,13 @@ Block* Block_fromString(const char* str) {
         if (key == 0) {
             key = property;
         } else {
+            int l = strlen(property);
             value = property;
+
+            if (value[l - 1] == '>') {
+                value[l - 1] = '\0';
+            }
+
             Block_setProperty(b, key, value);
 
             key = 0;
@@ -220,6 +231,7 @@ Block* Block_fromString(const char* str) {
         property = strtok(0, "=,");
     }
 
+    free(str0);
     return b;
 }
 

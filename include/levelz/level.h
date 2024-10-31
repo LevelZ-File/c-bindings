@@ -63,7 +63,7 @@ LevelHeader* LevelHeader_fromString(const char* str) {
     strcpy(str0, str);
 
     char* name = strtok(str0, " ") + 1;
-    char* value = strtok(0, " ");
+    char* value = name + strlen(name) + 1;
 
     return createLevelHeader(name, value);
 }
