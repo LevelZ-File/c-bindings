@@ -134,7 +134,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    strcpy(str0, str);</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    <span class="keywordtype">char</span>* name = strtok(str0, <span class="stringliteral">&quot; &quot;</span>) + 1;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">char</span>* value = strtok(0, <span class="stringliteral">&quot; &quot;</span>);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">char</span>* value = name + strlen(name) + 1;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> createLevelHeader(name, value);</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
@@ -526,12 +526,12 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="astructLevelHeader_html"><div class="ttname"><a href="structLevelHeader.html">LevelHeader</a></div><div class="ttdef"><b>Definition</b> level.h:15</div></div>
 <div class="ttc" id="astructLevelHeader_html_a7032f8e001c7e0e21ccd799d92229404"><div class="ttname"><a href="structLevelHeader.html#a7032f8e001c7e0e21ccd799d92229404">LevelHeader::name</a></div><div class="ttdeci">char * name</div><div class="ttdef"><b>Definition</b> level.h:19</div></div>
 <div class="ttc" id="astructLevelHeader_html_afafb96e08605e42ee6de3ac2ddff15b2"><div class="ttname"><a href="structLevelHeader.html#afafb96e08605e42ee6de3ac2ddff15b2">LevelHeader::value</a></div><div class="ttdeci">char * value</div><div class="ttdef"><b>Definition</b> level.h:24</div></div>
-<div class="ttc" id="astructLevelObject2D_html"><div class="ttname"><a href="structLevelObject2D.html">LevelObject2D</a></div><div class="ttdef"><b>Definition</b> block.h:229</div></div>
-<div class="ttc" id="astructLevelObject2D_html_a6d18ddc199272dfb8f72036b7ceb63de"><div class="ttname"><a href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">LevelObject2D::block</a></div><div class="ttdeci">Block * block</div><div class="ttdef"><b>Definition</b> block.h:234</div></div>
-<div class="ttc" id="astructLevelObject2D_html_ad914fccde734b5b333fecf4cd53fc6e4"><div class="ttname"><a href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">LevelObject2D::coordinate</a></div><div class="ttdeci">Coordinate2D * coordinate</div><div class="ttdef"><b>Definition</b> block.h:239</div></div>
-<div class="ttc" id="astructLevelObject3D_html"><div class="ttname"><a href="structLevelObject3D.html">LevelObject3D</a></div><div class="ttdef"><b>Definition</b> block.h:288</div></div>
-<div class="ttc" id="astructLevelObject3D_html_a0d3ff59772ab4aa8c0660939e8e50393"><div class="ttname"><a href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">LevelObject3D::block</a></div><div class="ttdeci">Block * block</div><div class="ttdef"><b>Definition</b> block.h:293</div></div>
-<div class="ttc" id="astructLevelObject3D_html_a72432eaa53bec5b9f69fb824e83e6c3f"><div class="ttname"><a href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">LevelObject3D::coordinate</a></div><div class="ttdeci">Coordinate3D * coordinate</div><div class="ttdef"><b>Definition</b> block.h:298</div></div>
+<div class="ttc" id="astructLevelObject2D_html"><div class="ttname"><a href="structLevelObject2D.html">LevelObject2D</a></div><div class="ttdef"><b>Definition</b> block.h:241</div></div>
+<div class="ttc" id="astructLevelObject2D_html_a6d18ddc199272dfb8f72036b7ceb63de"><div class="ttname"><a href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">LevelObject2D::block</a></div><div class="ttdeci">Block * block</div><div class="ttdef"><b>Definition</b> block.h:246</div></div>
+<div class="ttc" id="astructLevelObject2D_html_ad914fccde734b5b333fecf4cd53fc6e4"><div class="ttname"><a href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">LevelObject2D::coordinate</a></div><div class="ttdeci">Coordinate2D * coordinate</div><div class="ttdef"><b>Definition</b> block.h:251</div></div>
+<div class="ttc" id="astructLevelObject3D_html"><div class="ttname"><a href="structLevelObject3D.html">LevelObject3D</a></div><div class="ttdef"><b>Definition</b> block.h:300</div></div>
+<div class="ttc" id="astructLevelObject3D_html_a0d3ff59772ab4aa8c0660939e8e50393"><div class="ttname"><a href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">LevelObject3D::block</a></div><div class="ttdeci">Block * block</div><div class="ttdef"><b>Definition</b> block.h:305</div></div>
+<div class="ttc" id="astructLevelObject3D_html_a72432eaa53bec5b9f69fb824e83e6c3f"><div class="ttname"><a href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">LevelObject3D::coordinate</a></div><div class="ttdeci">Coordinate3D * coordinate</div><div class="ttdef"><b>Definition</b> block.h:310</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

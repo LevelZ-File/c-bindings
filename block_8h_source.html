@@ -218,127 +218,139 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>            sprintf(str, <span class="stringliteral">&quot;%s, &quot;</span>, str);</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    }</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    sprintf(str, <span class="stringliteral">&quot;%s&gt;&quot;</span>, str);</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">return</span> str;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>}</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>    <span class="keywordtype">int</span> l = strlen(str);</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">if</span> (str[l - 1] != <span class="charliteral">&#39;&gt;&#39;</span>)</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        sprintf(str, <span class="stringliteral">&quot;%s&gt;&quot;</span>, str);</div>
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span><a class="code hl_struct" href="structBlock.html">Block</a>* Block_fromString(<span class="keyword">const</span> <span class="keywordtype">char</span>* str) {</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordflow">if</span> (str == 0) <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordtype">int</span> l = strlen(str);</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keywordflow">if</span> (l == 0) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    <span class="keywordflow">return</span> str;</div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>}</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><a class="code hl_struct" href="structBlock.html">Block</a>* Block_fromString(<span class="keyword">const</span> <span class="keywordtype">char</span>* str) {</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keywordflow">if</span> (str == 0) <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordtype">char</span>* strCopy = (<span class="keywordtype">char</span>*) malloc(l + 1);</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    strcpy(strCopy, str);</div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    strCopy[l - 1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordtype">char</span>* name = strtok(strCopy, <span class="stringliteral">&quot;&lt;&quot;</span>);</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>    <span class="keywordflow">if</span> (name == 0) {</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        free(strCopy);</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>        <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    }</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <a class="code hl_struct" href="structBlock.html">Block</a>* b = createBlock(name);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordtype">int</span> l = strlen(str);</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>    <span class="keywordflow">if</span> (l == 0) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span> </div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>    <span class="keywordtype">char</span>* str0 = (<span class="keywordtype">char</span>*) malloc(l + 1);</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    strcpy(str0, str);</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    <span class="keywordtype">char</span>* name = strtok(str0, <span class="stringliteral">&quot;&lt;&quot;</span>);</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keywordflow">if</span> (name == 0) {</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        free(str0);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>        <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    }</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span> </div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordtype">char</span>* properties = strtok(0, <span class="stringliteral">&quot;&lt;&quot;</span>);</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">if</span> (properties == 0) {</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        free(strCopy);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">return</span> b;</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    }</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordtype">char</span>* <span class="keyword">property</span> = strtok(properties, <span class="stringliteral">&quot;=,&quot;</span>);</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordtype">char</span>* key = 0;</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keywordtype">char</span>* value = 0;</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="keywordflow">while</span> (property != 0) {</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <span class="keywordflow">if</span> (key == 0) {</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>            key = property;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>            value = property;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>            Block_setProperty(b, key, value);</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            key = 0;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            value = 0;</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        }</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span> </div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>        <span class="keyword">property</span> = strtok(0, <span class="stringliteral">&quot;=,&quot;</span>);</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    }</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    <span class="keywordflow">return</span> b;</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>}</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span> </div>
-<div class="foldopen" id="foldopen00229" data-start="{" data-end="};">
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno"><a class="line" href="structLevelObject2D.html">  229</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a> {</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordtype">char</span>* name0 = (<span class="keywordtype">char</span>*) malloc(strlen(name) + 1);</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    strcpy(name0, name);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    <a class="code hl_struct" href="structBlock.html">Block</a>* b = createBlock(name0);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordtype">char</span>* properties = strtok(0, <span class="stringliteral">&quot;&lt;&quot;</span>);</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">if</span> (properties == 0) {</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>        free(str0);</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <span class="keywordflow">return</span> b;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    }</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span> </div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    <span class="keywordtype">char</span>* <span class="keyword">property</span> = strtok(properties, <span class="stringliteral">&quot;=,&quot;</span>);</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordtype">char</span>* key = 0;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keywordtype">char</span>* value = 0;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">while</span> (property != 0) {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keywordflow">if</span> (key == 0) {</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            key = property;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            <span class="keywordtype">int</span> l = strlen(property);</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            value = property;</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>            <span class="keywordflow">if</span> (value[l - 1] == <span class="charliteral">&#39;&gt;&#39;</span>) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>                value[l - 1] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>            }</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>            Block_setProperty(b, key, value);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>            key = 0;</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>            value = 0;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        }</div>
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">  234</a></span>    <a class="code hl_struct" href="structBlock.html">Block</a>* <a class="code hl_variable" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">block</a>;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span> </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno"><a class="line" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">  239</a></span>    <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* <a class="code hl_variable" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">coordinate</a>;</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>} <a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        <span class="keyword">property</span> = strtok(0, <span class="stringliteral">&quot;=,&quot;</span>);</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    }</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span> </div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    free(str0);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keywordflow">return</span> b;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>}</div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="foldopen" id="foldopen00241" data-start="{" data-end="};">
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno"><a class="line" href="structLevelObject2D.html">  241</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a> {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">  246</a></span>    <a class="code hl_struct" href="structBlock.html">Block</a>* <a class="code hl_variable" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">block</a>;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno"><a class="line" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">  251</a></span>    <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* <a class="code hl_variable" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">coordinate</a>;</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>} <a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>;</div>
 </div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* createLevelObject2D(<a class="code hl_struct" href="structBlock.html">Block</a>* block, <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* coordinate) {</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* o = (<a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>));</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    o-&gt;<a class="code hl_variable" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">block</a> = block;</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    o-&gt;<a class="code hl_variable" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">coordinate</a> = coordinate;</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keywordflow">return</span> o;</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>}</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="keywordtype">char</span>* LevelObject2D_toString(<a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* <span class="keywordtype">object</span>) {</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    <span class="keywordtype">char</span>* block = Block_toString(object-&gt;<a class="code hl_variable" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">block</a>);</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <span class="keywordtype">char</span>* coordinate = Coordinate2D_toString(object-&gt;<a class="code hl_variable" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">coordinate</a>);</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keywordtype">char</span>* str = (<span class="keywordtype">char</span>*) malloc(strlen(block) + strlen(coordinate) + 3);</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    sprintf(str, <span class="stringliteral">&quot;%s: %s&quot;</span>, block, coordinate);</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordflow">return</span> str;</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>}</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* LevelObject2D_fromString(<span class="keywordtype">char</span>* str) {</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordtype">char</span>* blockStr = strtok(str, <span class="stringliteral">&quot;:&quot;</span>);</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    <span class="keywordtype">char</span>* coordinateStr = strtok(0, <span class="stringliteral">&quot;:&quot;</span>);</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* createLevelObject2D(<a class="code hl_struct" href="structBlock.html">Block</a>* block, <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* coordinate) {</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    <a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* o = (<a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>));</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    o-&gt;<a class="code hl_variable" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">block</a> = block;</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    o-&gt;<a class="code hl_variable" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">coordinate</a> = coordinate;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    <span class="keywordflow">return</span> o;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>}</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span><span class="keywordtype">char</span>* LevelObject2D_toString(<a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* <span class="keywordtype">object</span>) {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <span class="keywordtype">char</span>* block = Block_toString(object-&gt;<a class="code hl_variable" href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">block</a>);</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordtype">char</span>* coordinate = Coordinate2D_toString(object-&gt;<a class="code hl_variable" href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">coordinate</a>);</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span> </div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>    <span class="keywordtype">char</span>* str = (<span class="keywordtype">char</span>*) malloc(strlen(block) + strlen(coordinate) + 3);</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>    sprintf(str, <span class="stringliteral">&quot;%s: %s&quot;</span>, block, coordinate);</div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <a class="code hl_struct" href="structBlock.html">Block</a>* block = Block_fromString(blockStr);</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* coordinate = Coordinate2D_fromString(coordinateStr);</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>    <span class="keywordflow">return</span> str;</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>}</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordflow">return</span> createLevelObject2D(block, coordinate);</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>}</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="foldopen" id="foldopen00288" data-start="{" data-end="};">
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno"><a class="line" href="structLevelObject3D.html">  288</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a> {</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno"><a class="line" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">  293</a></span>    <a class="code hl_struct" href="structBlock.html">Block</a>* <a class="code hl_variable" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">block</a>;</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno"><a class="line" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">  298</a></span>    <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* <a class="code hl_variable" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">coordinate</a>;</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>} <a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>;</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span><a class="code hl_struct" href="structLevelObject2D.html">LevelObject2D</a>* LevelObject2D_fromString(<span class="keywordtype">char</span>* str) {</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordtype">char</span>* blockStr = strtok(str, <span class="stringliteral">&quot;:&quot;</span>);</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>    <span class="keywordtype">char</span>* coordinateStr = strtok(0, <span class="stringliteral">&quot;:&quot;</span>);</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    <a class="code hl_struct" href="structBlock.html">Block</a>* block = Block_fromString(blockStr);</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* coordinate = Coordinate2D_fromString(coordinateStr);</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span> </div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    <span class="keywordflow">return</span> createLevelObject2D(block, coordinate);</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>}</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span> </div>
+<div class="foldopen" id="foldopen00300" data-start="{" data-end="};">
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno"><a class="line" href="structLevelObject3D.html">  300</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a> {</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span> </div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno"><a class="line" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">  305</a></span>    <a class="code hl_struct" href="structBlock.html">Block</a>* <a class="code hl_variable" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">block</a>;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span> </div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno"><a class="line" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">  310</a></span>    <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* <a class="code hl_variable" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">coordinate</a>;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>} <a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>;</div>
 </div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span> </div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* createLevelObject3D(<a class="code hl_struct" href="structBlock.html">Block</a>* block, <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* coordinate) {</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* o = (<a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>));</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    o-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">block</a> = block;</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    o-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">coordinate</a> = coordinate;</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    <span class="keywordflow">return</span> o;</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>}</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span> </div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span><span class="keywordtype">char</span>* LevelObject3D_toString(<a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* <span class="keywordtype">object</span>) {</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keywordtype">char</span>* block = Block_toString(object-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">block</a>);</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <span class="keywordtype">char</span>* coordinate = Coordinate3D_toString(object-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">coordinate</a>);</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    <span class="keywordtype">char</span>* str = (<span class="keywordtype">char</span>*) malloc(strlen(block) + strlen(coordinate) + 3);</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    sprintf(str, <span class="stringliteral">&quot;%s: %s&quot;</span>, block, coordinate);</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span> </div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    <span class="keywordflow">return</span> str;</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>}</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* LevelObject3D_fromString(<span class="keywordtype">char</span>* str) {</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    <span class="keywordtype">char</span>* blockStr = strtok(str, <span class="stringliteral">&quot;:&quot;</span>);</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    <span class="keywordtype">char</span>* coordinateStr = strtok(0, <span class="stringliteral">&quot;:&quot;</span>);</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span> </div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* createLevelObject3D(<a class="code hl_struct" href="structBlock.html">Block</a>* block, <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* coordinate) {</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>    <a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* o = (<a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>*) malloc(<span class="keyword">sizeof</span>(<a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>));</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    o-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">block</a> = block;</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    o-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">coordinate</a> = coordinate;</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">return</span> o;</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>}</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span><span class="keywordtype">char</span>* LevelObject3D_toString(<a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* <span class="keywordtype">object</span>) {</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordtype">char</span>* block = Block_toString(object-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">block</a>);</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>    <span class="keywordtype">char</span>* coordinate = Coordinate3D_toString(object-&gt;<a class="code hl_variable" href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">coordinate</a>);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span> </div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>    <span class="keywordtype">char</span>* str = (<span class="keywordtype">char</span>*) malloc(strlen(block) + strlen(coordinate) + 3);</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>    sprintf(str, <span class="stringliteral">&quot;%s: %s&quot;</span>, block, coordinate);</div>
 <div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span> </div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <a class="code hl_struct" href="structBlock.html">Block</a>* block = Block_fromString(blockStr);</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>    <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* coordinate = Coordinate3D_fromString(coordinateStr);</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <span class="keywordflow">return</span> str;</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>}</div>
 <div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span> </div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keywordflow">return</span> createLevelObject3D(block, coordinate);</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>}</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span><a class="code hl_struct" href="structLevelObject3D.html">LevelObject3D</a>* LevelObject3D_fromString(<span class="keywordtype">char</span>* str) {</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>    <span class="keywordtype">char</span>* blockStr = strtok(str, <span class="stringliteral">&quot;:&quot;</span>);</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    <span class="keywordtype">char</span>* coordinateStr = strtok(0, <span class="stringliteral">&quot;:&quot;</span>);</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span> </div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    <a class="code hl_struct" href="structBlock.html">Block</a>* block = Block_fromString(blockStr);</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>    <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* coordinate = Coordinate3D_fromString(coordinateStr);</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span> </div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordflow">return</span> createLevelObject3D(block, coordinate);</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>}</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="astructBlockProperty_html"><div class="ttname"><a href="structBlockProperty.html">BlockProperty</a></div><div class="ttdef"><b>Definition</b> block.h:15</div></div>
 <div class="ttc" id="astructBlockProperty_html_a5c0aef02efe0d4a791bc17a00f67263a"><div class="ttname"><a href="structBlockProperty.html#a5c0aef02efe0d4a791bc17a00f67263a">BlockProperty::value</a></div><div class="ttdeci">char * value</div><div class="ttdef"><b>Definition</b> block.h:24</div></div>
 <div class="ttc" id="astructBlockProperty_html_a60f34b0cdd77cab49901593386b741b7"><div class="ttname"><a href="structBlockProperty.html#a60f34b0cdd77cab49901593386b741b7">BlockProperty::name</a></div><div class="ttdeci">char * name</div><div class="ttdef"><b>Definition</b> block.h:19</div></div>
@@ -349,12 +361,12 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="astructBlock_html_a982048aebc3413585b5ba2fb2df133ac"><div class="ttname"><a href="structBlock.html#a982048aebc3413585b5ba2fb2df133ac">Block::name</a></div><div class="ttdeci">char * name</div><div class="ttdef"><b>Definition</b> block.h:34</div></div>
 <div class="ttc" id="astructCoordinate2D_html"><div class="ttname"><a href="structCoordinate2D.html">Coordinate2D</a></div><div class="ttdef"><b>Definition</b> coordinate.h:11</div></div>
 <div class="ttc" id="astructCoordinate3D_html"><div class="ttname"><a href="structCoordinate3D.html">Coordinate3D</a></div><div class="ttdef"><b>Definition</b> coordinate.h:108</div></div>
-<div class="ttc" id="astructLevelObject2D_html"><div class="ttname"><a href="structLevelObject2D.html">LevelObject2D</a></div><div class="ttdef"><b>Definition</b> block.h:229</div></div>
-<div class="ttc" id="astructLevelObject2D_html_a6d18ddc199272dfb8f72036b7ceb63de"><div class="ttname"><a href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">LevelObject2D::block</a></div><div class="ttdeci">Block * block</div><div class="ttdef"><b>Definition</b> block.h:234</div></div>
-<div class="ttc" id="astructLevelObject2D_html_ad914fccde734b5b333fecf4cd53fc6e4"><div class="ttname"><a href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">LevelObject2D::coordinate</a></div><div class="ttdeci">Coordinate2D * coordinate</div><div class="ttdef"><b>Definition</b> block.h:239</div></div>
-<div class="ttc" id="astructLevelObject3D_html"><div class="ttname"><a href="structLevelObject3D.html">LevelObject3D</a></div><div class="ttdef"><b>Definition</b> block.h:288</div></div>
-<div class="ttc" id="astructLevelObject3D_html_a0d3ff59772ab4aa8c0660939e8e50393"><div class="ttname"><a href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">LevelObject3D::block</a></div><div class="ttdeci">Block * block</div><div class="ttdef"><b>Definition</b> block.h:293</div></div>
-<div class="ttc" id="astructLevelObject3D_html_a72432eaa53bec5b9f69fb824e83e6c3f"><div class="ttname"><a href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">LevelObject3D::coordinate</a></div><div class="ttdeci">Coordinate3D * coordinate</div><div class="ttdef"><b>Definition</b> block.h:298</div></div>
+<div class="ttc" id="astructLevelObject2D_html"><div class="ttname"><a href="structLevelObject2D.html">LevelObject2D</a></div><div class="ttdef"><b>Definition</b> block.h:241</div></div>
+<div class="ttc" id="astructLevelObject2D_html_a6d18ddc199272dfb8f72036b7ceb63de"><div class="ttname"><a href="structLevelObject2D.html#a6d18ddc199272dfb8f72036b7ceb63de">LevelObject2D::block</a></div><div class="ttdeci">Block * block</div><div class="ttdef"><b>Definition</b> block.h:246</div></div>
+<div class="ttc" id="astructLevelObject2D_html_ad914fccde734b5b333fecf4cd53fc6e4"><div class="ttname"><a href="structLevelObject2D.html#ad914fccde734b5b333fecf4cd53fc6e4">LevelObject2D::coordinate</a></div><div class="ttdeci">Coordinate2D * coordinate</div><div class="ttdef"><b>Definition</b> block.h:251</div></div>
+<div class="ttc" id="astructLevelObject3D_html"><div class="ttname"><a href="structLevelObject3D.html">LevelObject3D</a></div><div class="ttdef"><b>Definition</b> block.h:300</div></div>
+<div class="ttc" id="astructLevelObject3D_html_a0d3ff59772ab4aa8c0660939e8e50393"><div class="ttname"><a href="structLevelObject3D.html#a0d3ff59772ab4aa8c0660939e8e50393">LevelObject3D::block</a></div><div class="ttdeci">Block * block</div><div class="ttdef"><b>Definition</b> block.h:305</div></div>
+<div class="ttc" id="astructLevelObject3D_html_a72432eaa53bec5b9f69fb824e83e6c3f"><div class="ttname"><a href="structLevelObject3D.html#a72432eaa53bec5b9f69fb824e83e6c3f">LevelObject3D::coordinate</a></div><div class="ttdeci">Coordinate3D * coordinate</div><div class="ttdef"><b>Definition</b> block.h:310</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

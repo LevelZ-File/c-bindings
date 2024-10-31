@@ -114,15 +114,28 @@ Usage</h1>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">    <a class="code hl_struct" href="structCoordinate2D.html">Coordinate2D</a>* coord = createCoordinate2D(0, 0);</div>
+<div class="line">    <a class="code hl_struct" href="structCoordinate3D.html">Coordinate3D</a>* coord2 = createCoordinate3D(0, 0, 0);</div>
+<div class="line"> </div>
+<div class="line">    printf(<span class="stringliteral">&quot;Coordinate 2D: (%d, %d)\n&quot;</span>, coord-&gt;<a class="code hl_variable" href="structCoordinate2D.html#abbef338e19b6ce8442a72d5fdf2b1152">x</a>, coord-&gt;<a class="code hl_variable" href="structCoordinate2D.html#a0a78d5bdf6ce2466f0be2b34054993ca">y</a>);</div>
+<div class="line">    printf(<span class="stringliteral">&quot;Coordinate 3D: (%d, %d, %d)\n&quot;</span>, coord2-&gt;<a class="code hl_variable" href="structCoordinate3D.html#a63830b58e2bded00a5b15f0e64212fea">x</a>, coord2-&gt;<a class="code hl_variable" href="structCoordinate3D.html#acc850969690cd9f3bfa8391417e064ae">y</a>, coord2-&gt;<a class="code hl_variable" href="structCoordinate3D.html#a67f97ea65f6bd1547eaef6068d22f975">z</a>);</div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
 <div class="ttc" id="astructCoordinate2D_html"><div class="ttname"><a href="structCoordinate2D.html">Coordinate2D</a></div><div class="ttdef"><b>Definition</b> coordinate.h:11</div></div>
+<div class="ttc" id="astructCoordinate2D_html_a0a78d5bdf6ce2466f0be2b34054993ca"><div class="ttname"><a href="structCoordinate2D.html#a0a78d5bdf6ce2466f0be2b34054993ca">Coordinate2D::y</a></div><div class="ttdeci">double y</div><div class="ttdef"><b>Definition</b> coordinate.h:20</div></div>
+<div class="ttc" id="astructCoordinate2D_html_abbef338e19b6ce8442a72d5fdf2b1152"><div class="ttname"><a href="structCoordinate2D.html#abbef338e19b6ce8442a72d5fdf2b1152">Coordinate2D::x</a></div><div class="ttdeci">double x</div><div class="ttdef"><b>Definition</b> coordinate.h:15</div></div>
+<div class="ttc" id="astructCoordinate3D_html"><div class="ttname"><a href="structCoordinate3D.html">Coordinate3D</a></div><div class="ttdef"><b>Definition</b> coordinate.h:108</div></div>
+<div class="ttc" id="astructCoordinate3D_html_a63830b58e2bded00a5b15f0e64212fea"><div class="ttname"><a href="structCoordinate3D.html#a63830b58e2bded00a5b15f0e64212fea">Coordinate3D::x</a></div><div class="ttdeci">double x</div><div class="ttdef"><b>Definition</b> coordinate.h:112</div></div>
+<div class="ttc" id="astructCoordinate3D_html_a67f97ea65f6bd1547eaef6068d22f975"><div class="ttname"><a href="structCoordinate3D.html#a67f97ea65f6bd1547eaef6068d22f975">Coordinate3D::z</a></div><div class="ttdeci">double z</div><div class="ttdef"><b>Definition</b> coordinate.h:122</div></div>
+<div class="ttc" id="astructCoordinate3D_html_acc850969690cd9f3bfa8391417e064ae"><div class="ttname"><a href="structCoordinate3D.html#acc850969690cd9f3bfa8391417e064ae">Coordinate3D::y</a></div><div class="ttdeci">double y</div><div class="ttdef"><b>Definition</b> coordinate.h:117</div></div>
 </div><!-- fragment --><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;levelz.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">    Level* l = parseFile(<span class="stringliteral">&quot;path/to/file.lvlz&quot;</span>)</div>
+<div class="line">    <a class="code hl_struct" href="structLevel2D.html">Level2D</a>* l = parseFile2D(<span class="stringliteral">&quot;path/to/file-2d.lvlz&quot;</span>)</div>
+<div class="line">    <a class="code hl_struct" href="structLevel3D.html">Level3D</a>* l2 = parseFile3D(&quot;path/to/file-3d.lvlz&quot;)</div>
 <div class="line">    return 0;</div>
 <div class="line">}</div>
+<div class="ttc" id="astructLevel2D_html"><div class="ttname"><a href="structLevel2D.html">Level2D</a></div><div class="ttdef"><b>Definition</b> level.h:74</div></div>
+<div class="ttc" id="astructLevel3D_html"><div class="ttname"><a href="structLevel3D.html">Level3D</a></div><div class="ttdef"><b>Definition</b> level.h:353</div></div>
 </div><!-- fragment --> </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
