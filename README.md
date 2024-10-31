@@ -31,6 +31,10 @@ sudo cmake --build . --config Release --target install
 
 int main() {
     Coordinate2D* coord = createCoordinate2D(0, 0);
+    Coordinate3D* coord2 = createCoordinate3D(0, 0, 0);
+
+    printf("Coordinate 2D: (%d, %d)\n", coord->x, coord->y);
+    printf("Coordinate 3D: (%d, %d, %d)\n", coord2->x, coord2->y, coord2->z);
     return 0;
 }
 ```
@@ -39,7 +43,8 @@ int main() {
 #include <levelz.h>
 
 int main() {
-    Level* l = parseFile("path/to/file.lvlz")
+    Level2D* l = parseFile2D("path/to/file-2d.lvlz")
+    Level3D* l2 = parseFile3D("path/to/file-3d.lvlz")
     return 0;
 }
 ```
