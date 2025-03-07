@@ -19,6 +19,8 @@ int main() {
     r |= assert(strcmp(headers[1]->name, "header2") == 0);
     r |= assert(strcmp(headers[1]->value, "value2") == 0);
 
+    free(h1);
+
     char** h2 = malloc(4 * sizeof(char*));
     h2[0] = "@type 2";
     h2[1] = "@spawn [0, 0]";
@@ -33,6 +35,7 @@ int main() {
     r |= assert(strcmp(headers2[2]->name, "custom") == 0);
     r |= assert(strcmp(headers2[2]->value, "value value2") == 0);
 
+    free(h2);
     // Coordinates
 
     char* c1 = "[0, 0]*[0, 1]*[0, 2]";

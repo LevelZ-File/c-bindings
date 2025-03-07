@@ -36,6 +36,7 @@ char* __trim(const char* str) {
     char* str1 = (char*) malloc(j - i + 2);
     strncpy(str1, str0 + i, j - i + 1);
     str1[j - i + 1] = '\0';
+    free(str0);
 
     return str1;
 }
@@ -198,6 +199,7 @@ Coordinate3D** __read3DPoints(char* input) {
         start = (*end) ? end + 1 : end;
     }
 
+    free(str0);
     return points;
 }
 
