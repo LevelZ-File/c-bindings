@@ -193,7 +193,7 @@ char* Coordinate3D_toString(Coordinate3D* c) {
  * @return The Coordinate3D.
  */
 Coordinate3D* Coordinate3D_fromString(char* str) {
-    char* str0 = (char*) malloc(strlen(str));
+    char* str0 = (char*) malloc(strlen(str) + 1);
     strcpy(str0, str);
 
     char* x0 = strtok(str0, "[], \t");
