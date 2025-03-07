@@ -15,7 +15,7 @@ function(add_test_executable name)
     add_dependencies("${TEST_NAME}" levelz-c)
     add_test(NAME "${name}.h" COMMAND "${TEST_NAME}")
 
-    if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clan`g")
+    if (CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
         target_compile_options("${TEST_NAME}" PRIVATE -coverage -lm -w)
         target_link_options("${TEST_NAME}" PRIVATE -coverage)
         target_link_libraries("${TEST_NAME}" PRIVATE m)

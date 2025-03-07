@@ -20,6 +20,7 @@ int main() {
     r |= assert(strcmp(headers[1]->value, "value2") == 0);
 
     free(h1);
+    free(headers);
 
     char** h2 = malloc(4 * sizeof(char*));
     h2[0] = "@type 2";
@@ -36,6 +37,7 @@ int main() {
     r |= assert(strcmp(headers2[2]->value, "value value2") == 0);
 
     free(h2);
+    free(headers2);
     // Coordinates
 
     char* c1 = "[0, 0]*[0, 1]*[0, 2]";
@@ -48,9 +50,11 @@ int main() {
     r |= assert(coordinates[2]->x == 0);
     r |= assert(coordinates[2]->y == 2);
 
-    char* c2 = "[0, 0, 0]*[0, 1, 2]*[0, 2, 4]";
+    free(coordinates);
 
+    char* c2 = "[0, 0, 0]*[0, 1, 2]*[0, 2, 4]";
     Coordinate3D** coordinates2 = __read3DPoints(c2);
+
     r |= assert(coordinates2[0]->x == 0);
     r |= assert(coordinates2[0]->y == 0);
     r |= assert(coordinates2[0]->z == 0);
@@ -60,6 +64,8 @@ int main() {
     r |= assert(coordinates2[2]->x == 0);
     r |= assert(coordinates2[2]->y == 2);
     r |= assert(coordinates2[2]->z == 4);
+
+    free(coordinates2);
 
     // Lines
 
@@ -75,6 +81,8 @@ int main() {
     r |= assert(line->coordinates[2]->x == 0);
     r |= assert(line->coordinates[2]->y == 2);
 
+    free(line);
+
     char* l2 = "block: [0, 0, 0]*[0, 1, 2]*[0, 2, 4]";
     LevelZLine3D* line2 = __read3DLine(l2);
 
@@ -89,6 +97,8 @@ int main() {
     r |= assert(line2->coordinates[2]->y == 2);
     r |= assert(line2->coordinates[2]->z == 4);
 
+    free(line2);
+
     char* l3 = "block<key=value>: [0, 2]*(0, 2, 0, 2)^[0, 1]";
     
     LevelZLine2D* line3 = __read2DLine(l3);
@@ -98,6 +108,8 @@ int main() {
     r |= assert(line3->coordinates[0]->x == 0);
     r |= assert(line3->coordinates[0]->y == 2);
 
+    free(line3);
+
     char* l4 = "block<key=value,key2=value2>: [0, 2, 0]*(0, 2, 0, 2, 0, 2)^[0, 4, 4]";
 
     LevelZLine3D* line4 = __read3DLine(l4);
@@ -105,6 +117,8 @@ int main() {
     r |= assert(strcmp(line4->block->name, "block") == 0);
     r |= assert(strcmp(Block_getProperty(line4->block, "key"), "value") == 0);
     r |= assert(strcmp(Block_getProperty(line4->block, "key2"), "value2") == 0);
+
+    free(line4);
 
     return r;
 }
