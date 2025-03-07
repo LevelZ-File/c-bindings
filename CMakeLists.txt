@@ -7,6 +7,8 @@ project(levelz-c
     DESCRIPTION "C implementation of the LevelZ File Format"
     HOMEPAGE_URL "https://github.com/LevelZ-File/c-bindings"
 )
+set(PROJECT_DOCUMENTATION "https://levelz-file.github.io/c-bindings")
+
 set(CMAKE_C_STANDARD 11)
 
 # Sources
@@ -37,6 +39,18 @@ find_package(Doxygen)
 endif()
 
 # Installation
+if(WIN32)
+    if(CMAKE_SIZEOF_VOID_P MATCHES "8")
+        set(CMAKE_INSTALL_PREFIX "C:/Program Files/${CMAKE_PROJECT_NAME}")
+    else()
+        set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/${CMAKE_PROJECT_NAME}")
+    endif()
+elseif(APPLE)
+    set(CMAKE_INSTALL_PREFIX "/usr/local")
+else()
+    set(CMAKE_INSTALL_PREFIX "/usr")
+endif()
+
 option(INSTALL_LEVELZ_C "Install ${PROJECT_NAME}" ON)
 
 if (INSTALL_LEVELZ_C)
