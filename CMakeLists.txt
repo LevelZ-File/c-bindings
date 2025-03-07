@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 
+set(PROJECT_VERSION "0.1.1")
 project(levelz-c 
     LANGUAGES C 
-    VERSION 0.1.0
+    VERSION ${PROJECT_VERSION}
     DESCRIPTION "C implementation of the LevelZ File Format"
     HOMEPAGE_URL "https://github.com/LevelZ-File/c-bindings"
 )
