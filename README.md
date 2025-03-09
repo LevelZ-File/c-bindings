@@ -10,6 +10,10 @@ Provides C bindings for the LevelZ file format. This library is header-only and 
 
 ## Installation
 
+You can use the installers provided in the [releases](https://github.com/LevelZ-File/c-bindings/releases) section.
+
+Alternatively, you can build the project from source.
+
 Ensure you have [CMake](https://cmake.org/) installed on your system, then run the following commands:
 
 ```bash

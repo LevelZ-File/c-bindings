@@ -122,7 +122,10 @@ enum Scroll {
  */
 Level2D* createLevel2D(Coordinate2D* spawn) {
     Level2D* l = (Level2D*) malloc(sizeof(Level2D));
+    l->headers = 0;
+    l->blocks = 0;
     l->spawn = spawn;
+
     return l;
 }
 
@@ -132,8 +135,18 @@ Level2D* createLevel2D(Coordinate2D* spawn) {
  * @return The number of headers in the Level2D.
  */
 int Level2D_getHeaderCount(Level2D* level) {
+    if (level == 0) return 0;
+
+    if (level->headers == 0) {
+        level->headers = (LevelHeader**) malloc(sizeof(LevelHeader*));
+        if (!level->headers) return 0;
+
+        level->headers[0] = 0;
+        return 0;
+    }
+
     int headerCount = 0;
-    while (level->headers[headerCount] != NULL) {
+    while (level->headers[headerCount] != 0) {
         headerCount++;
     }
 
@@ -147,6 +160,8 @@ int Level2D_getHeaderCount(Level2D* level) {
  * @return The value of the header.
  */
 char* Level2D_getHeader(Level2D* level, char* name) {
+    if (level == 0) return 0;
+    if (name == 0) return 0;
     if (level->headers == 0) return 0;
 
     int i = 0;
@@ -166,6 +181,9 @@ char* Level2D_getHeader(Level2D* level, char* name) {
  * @param h The header to add.
  */
 void Level2D_setHeader(Level2D* level, LevelHeader* h) {
+    if (level == 0) return;
+    if (h == 0) return;
+
     if (level->headers == 0) {
         level->headers = (LevelHeader**) malloc(2 * sizeof(LevelHeader*));
         level->headers[0] = h;
@@ -193,6 +211,10 @@ void Level2D_setHeader(Level2D* level, LevelHeader* h) {
  * @param value The value of the header.
  */
 void Level2D_addHeader(Level2D* level, char* name, char* value) {
+    if (level == 0) return;
+    if (name == 0) return;
+    if (value == 0) return;
+
     LevelHeader* h = (LevelHeader*) malloc(sizeof(LevelHeader));
     h->name = name;
     h->value = value;
@@ -206,6 +228,8 @@ void Level2D_addHeader(Level2D* level, char* name, char* value) {
  * @param name The name of the header to remove.
  */
 void Level2D_removeHeader(Level2D* level, char* name) {
+    if (level == 0) return;
+    if (name == 0) return;
     if (level->headers == 0) return;
 
     int i = 0;
@@ -229,8 +253,16 @@ void Level2D_removeHeader(Level2D* level, char* name) {
  * @return The number of blocks in the Level2D.
  */
 int Level2D_getBlockCount(Level2D* level) {
+    if (level == 0) return 0;
+    
+    if (level->blocks == 0) {
+        level->blocks = (LevelObject2D**) malloc(2 * sizeof(LevelObject2D*));
+        level->blocks[0] = 0;
+        return 0;
+    }
+
     int blockCount = 0;
-    while (level->blocks[blockCount] != NULL) {
+    while (level->blocks[blockCount] != 0) {
         blockCount++;
     }
 
@@ -244,6 +276,8 @@ int Level2D_getBlockCount(Level2D* level) {
  * @return The block at the coordinate, or 0 if no block is found.
  */
 Block* Level2D_getBlock(Level2D* level, Coordinate2D* coordinate) {
+    if (level == 0) return 0;
+    if (coordinate == 0) return 0;
     if (level->blocks == 0) return 0;
 
     int i = 0;
@@ -374,9 +408,10 @@ typedef struct Level3D {
  */
 Level3D* createLevel3D(Coordinate3D* spawn) {
     Level3D* l = (Level3D*) malloc(sizeof(Level3D));
-    l->headers = NULL;
-    l->blocks = NULL;
+    l->headers = 0;
+    l->blocks = 0;
     l->spawn = spawn;
+
     return l;
 }
 
@@ -386,8 +421,18 @@ Level3D* createLevel3D(Coordinate3D* spawn) {
  * @return The number of headers in the Level3D.
  */
 int Level3D_getHeaderCount(Level3D* level) {
+    if (level == 0) return 0;
+
+    if (level->headers == 0) {
+        level->headers = (LevelHeader**) malloc(sizeof(LevelHeader*));
+        if (!level->headers) return 0;
+
+        level->headers[0] = 0;
+        return 0;
+    }
+
     int headerCount = 0;
-    while (level->headers[headerCount] != NULL) {
+    while (level->headers[headerCount] != 0) {
         headerCount++;
     }
 
@@ -401,6 +446,8 @@ int Level3D_getHeaderCount(Level3D* level) {
  * @return The value of the header.
  */
 char* Level3D_getHeader(Level3D* level, char* name) {
+    if (level == 0) return 0;
+    if (name == 0) return 0;
     if (level->headers == 0) return 0;
 
     int i = 0;
@@ -420,6 +467,9 @@ char* Level3D_getHeader(Level3D* level, char* name) {
  * @param h The header to add.
  */
 void Level3D_setHeader(Level3D* level, LevelHeader* h) {
+    if (level == 0) return;
+    if (h == 0) return;
+
     if (level->headers == 0) {
         level->headers = (LevelHeader**) malloc(2 * sizeof(LevelHeader*));
         level->headers[0] = h;
@@ -447,6 +497,10 @@ void Level3D_setHeader(Level3D* level, LevelHeader* h) {
  * @param value The value of the header.
  */
 void Level3D_addHeader(Level3D* level, char* name, char* value) {
+    if (level == 0) return;
+    if (name == 0) return;
+    if (value == 0) return;
+
     LevelHeader* h = (LevelHeader*) malloc(sizeof(LevelHeader));
     h->name = name;
     h->value = value;
@@ -460,6 +514,8 @@ void Level3D_addHeader(Level3D* level, char* name, char* value) {
  * @param name The name of the header to remove.
  */
 void Level3D_removeHeader(Level3D* level, char* name) {
+    if (level == 0) return;
+    if (name == 0) return;
     if (level->headers == 0) return;
 
     int i = 0;
@@ -504,7 +560,7 @@ Block* Level3D_getBlock(Level3D* level, Coordinate3D* coordinate) {
  */
 int Level3D_getBlockCount(Level3D* level) {
     int blockCount = 0;
-    while (level->blocks[blockCount] != NULL) {
+    while (level->blocks[blockCount] != 0) {
         blockCount++;
     }
 

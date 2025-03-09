@@ -3,19 +3,30 @@
 build/
 Testing/
 .cmake/
+x64/
+Release/
+Debug/
+.DS_Store
 
 CMakeFiles
 Makefile
 CMakeCache.txt
 *.cmake
 DartConfiguration.tcl
-levelz-test-*
+cmdfx-test-*
 CMakeDoxyfile.in
 CMakeDoxygenDefaults.cmake
-install_manifest.txt
+install_manifest*
+_CPack_Packages/
 
+*.dir/
 *.o
 *.a
 *.so
 *.dylib
 *.dll
+*.vcxproj*
+*.sln
+*.exp
+*.exe
+*.lib

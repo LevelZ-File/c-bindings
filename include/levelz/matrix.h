@@ -107,7 +107,7 @@ Coordinate2D* CoordinateMatrix2D_coordinateAt(CoordinateMatrix2D* matrix, int in
 char* CoordinateMatrix2D_toString(CoordinateMatrix2D* matrix) {
     if (matrix == 0) return 0;
 
-    int size = snprintf(NULL, 0, "(%d, %d, %d, %d)^%s", matrix->minX, matrix->maxX, matrix->minY, matrix->maxY, Coordinate2D_toString(matrix->start));
+    int size = snprintf(0, 0, "(%d, %d, %d, %d)^%s", matrix->minX, matrix->maxX, matrix->minY, matrix->maxY, Coordinate2D_toString(matrix->start));
     char* str = (char*) malloc(size);
     sprintf(str, "(%d, %d, %d, %d)^%s", matrix->minX, matrix->maxX, matrix->minY, matrix->maxY, Coordinate2D_toString(matrix->start));
     return str;
@@ -265,7 +265,7 @@ Coordinate3D* CoordinateMatrix3D_coordinateAt(CoordinateMatrix3D* matrix, int in
 char* CoordinateMatrix3D_toString(CoordinateMatrix3D* matrix) {
     if (matrix == 0) return 0;
 
-    int size = snprintf(NULL, 0, "(%d, %d, %d, %d, %d, %d)^%s", matrix->minX, matrix->maxX, matrix->minY, matrix->maxY, matrix->minZ, matrix->maxZ, Coordinate3D_toString(matrix->start));
+    int size = snprintf(0, 0, "(%d, %d, %d, %d, %d, %d)^%s", matrix->minX, matrix->maxX, matrix->minY, matrix->maxY, matrix->minZ, matrix->maxZ, Coordinate3D_toString(matrix->start));
     char* str = (char*) malloc(size);
     sprintf(str, "(%d, %d, %d, %d, %d, %d)^%s", matrix->minX, matrix->maxX, matrix->minY, matrix->maxY, matrix->minZ, matrix->maxZ, Coordinate3D_toString(matrix->start));
     return str;

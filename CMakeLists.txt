@@ -61,11 +61,13 @@ if (INSTALL_LEVELZ_C)
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         INCLUDES DESTINATION include
+        COMPONENT library
     )
     install(EXPORT levelz-c-targets
         FILE ${PROJECT_NAME}Targets.cmake
         NAMESPACE ${PROJECT_NAME}::
-        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}/cmake
+        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME}
+        COMPONENT library
     )
 
     include(CMakePackageConfigHelpers)
@@ -82,6 +84,7 @@ if (INSTALL_LEVELZ_C)
     install(FILES "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
                     "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
             DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME}
+            COMPONENT library
     )
     install(DIRECTORY "${PROJECT_SOURCE_DIR}/include/" DESTINATION include COMPONENT library)
 
